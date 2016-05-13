@@ -4,7 +4,7 @@ This is the official documentation for QuimP software.
 
 # How to use it
 
-This repository contains `LaTeX` source of the QuimP documentation. Compiled *pdf* files related to currently released version of quimP are available at [QuimP homepage](http://www2.warwick.ac.uk/fac/sci/systemsbiology/staff/bretschneider/quimp/).
+This repository contains `LaTeX` source of the QuimP documentation. Compiled *pdf* file related to currently released version of QuimP is available at [QuimP homepage](http://www2.warwick.ac.uk/fac/sci/systemsbiology/staff/bretschneider/quimp/).
 This repository is included in [QuimP](https://github.com/CellDynamics/QuimP) as submodule. 
 
 ## Building

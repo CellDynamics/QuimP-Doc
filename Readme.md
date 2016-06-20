@@ -11,7 +11,7 @@ This repository is included in [QuimP](https://github.com/CellDynamics/QuimP) as
 
 One needs to have full LaTeX distribution installed on the system. Then, to build the documentation type:
 ```sh
-cd Docs
+cd Docspdflatex QuimP_Guide.tex
 pdflatex QuimP_Guide.tex
 bibtex QuimP_Guide.aux
 pdflatex QuimP_Guide.tex

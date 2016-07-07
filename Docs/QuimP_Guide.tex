@@ -37,7 +37,7 @@ Web site: \url{http://go.warwick.ac.uk/quimp}
 \section{QuimP 16.06.01 - what is new}
 
 \subsection{Summary}
-The key feature of this version is ability to restore saved BOA state and to continue work from saved point. Segementation configuration, plugins and current view are saved in new file format \textit{QCONF}. To mantain backward compatibility, all previously used files are produced as well when exiting BOA. The \textit{QCONF} file is human readable (JSON) and contains all data and parameters stored by BOA.   
+The key feature of this version is ability to restore saved BOA state and to continue work from saved point. Segmentation configuration, plugins and current view are saved in new file format \textit{QCONF}. To mantain backward compatibility, all previously used files are produced as well when exiting BOA. The \textit{QCONF} file is human readable (JSON) and contains all data and parameters stored by BOA.   
 \subsection{Change log}
 For changelog check QuimP web at: \url{https://github.com/CellDynamics/QuimP/wiki/History}.
 	
@@ -45,27 +45,8 @@ In case of bugs, contact with QuimP developer: \textit{p.baniukiewicz@warwick.ac
 
 \section{Installation}
 
-\subsection{System requirements}
+Consult our Wiki page for installation details: \url{https://github.com/CellDynamics/QuimP/wiki/InstallationQuimP}
 
-QuimP is written in Java as a set of ImageJ plugins, thus it can be run on any platform that supports Java (Windows, MacOS, Linux). A fast processor and at least 4 GB of RAM is recommended (more in case of large datasets). The following components are required to run QuimP:
-\begin{itemize}
-	\item Java 8 or newer runtime (system-wide installation)
-	\item ImageJ (or Fiji) in version 1.43 or later.  
-	\item QuimP core package - it can be downloaded from \url{http://go.warwick.ac.uk/quimp}
-\end{itemize}
-
-QuimP will also function with Fiji, an extended version of ImageJ (\url{http://pacific.mpi-cbg.de/wiki/index.php/Fiji}).
-
-Note that ImageJ as well as Fiji are shipped with embedded Java in version 6. To make QuimP working on these (default) installations, one must reconfigure them according to this FAQ: \url{http://imagej.net/Frequently_Asked_Questions} in order to promote Java 8 over default 6.  
-
-\subsection{Installation procedure}
-\begin{enumerate}
-	\item Download and install Java 8. For MacOS or Linux extra configuration steps may be necessary. Consult documentation relevant to your system.
-	\item Download and install ImageJ or Fiji (recommended). Consult Fiji FAQ (\url{http://imagej.net/Frequently_Asked_Questions}) how to run ImageJ or Fiji with Java 8.
-	\item Download QuimP in latest available version \url{http://go.warwick.ac.uk/quimp}
-	\item Unpack the content of \texttt{QuimP-xxxx.zip} archive (\texttt{xxxx} string stands for QuimP version) into \textit{plugins} folder located in the installation directory of ImageJ.
-	\item Run ImageJ/Fiji and head to \textit{Plugnis}. The \textit{QuimP-xxxx} entry should be available there.
-\end{enumerate}
 
 \section{QuimP Workflow}
 

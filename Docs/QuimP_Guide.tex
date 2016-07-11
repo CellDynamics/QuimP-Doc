@@ -32,7 +32,7 @@ Web site: \url{http://go.warwick.ac.uk/quimp}
 \setlength{\parindent}{0pt}
 
 \section{About new QuimP}
-\marginnote{{\small General information about new QuimP, its philisophy and goal}}
+\marginnote{{\small General information about new QuimP, its philosophy and goal}}
 
 \section{QuimP 16.06.01 - what is new}
 
@@ -59,7 +59,12 @@ There are four stages (and four plugins) to completing an analysis using QuimP.
 	\item Data analysis - Performed by the \textbf{Q Analysis} plugin. Statistics are generated and data are visualised in the form of spatial-temporal maps.
 \end{enumerate}
 
-Additionally, there is the DIC\footnote{Differential Interference Contrast microscopy} plugin provided that allows to reconstruct images from differential interference contrast microscopes. This preprocessing step is necessary to prepare such images for segmentation in BOA plugin. More details about reconstruction of differential interference contrast microscopy images can be found in \autoref{sec:DIC}. 
+Additionally, there are image pre-processing plugins available such as:
+
+\begin{enumerate}
+	\item DIC\footnote{Differential Interference Contrast microscopy} plugin (\autoref{sec:DIC})
+	\item Random Walker Segmentation plugin (\autoref{sec:RWSeg})
+\end{enumerate}
 
 A plugin can be launched from either the $[Plugins\rightarrow QuimP]$ menu, or from the QuimP bar
 (opened via $[Plugins\rightarrow QuimP\rightarrow QuimP Bar]$).
@@ -71,7 +76,7 @@ Once complete, data can be analysed in Excel or MATLAB.
 
 \begin{figure}[ht]
    \centering
-   \includegraphics[width=10cm]{quimpBar.png} % requires the graphicx package
+   \includegraphics[width=15cm]{quimpBar.png} % requires the graphicx package
    \caption{The QuimP bar}
    \label{quimpBar}
 \end{figure}
@@ -110,7 +115,51 @@ cell outlines. \cite{Tyson2010}}
    \label{activeContour}
 \end{figure}
 
+The BOA window is presented in Figure \ref{boaWindow}. There are \textbf{four} zones that control image segmentation, displaying and postprocessing. 
+\begin{itemize}
+	\item The red zone contains settings of cell segmentation algorithm, described in \hyperref[step4]{step 4} below. 
+	\item The blue zone contains controls for moving across frames in stack and for zooming cells available on current frame.
+	\item The green zone contains tools for manual modification of contours.
+	\item The yellow zone contains three slots for outline postprocessing filters (described in section \ref{sec:boaFilters})
+\end{itemize}
 
+\begin{figure}[ht]
+	\centering
+	\includegraphics[height=10cm]{boaWindow.png}
+	\caption{The BOA Window}
+	\label{boaWindow}
+\end{figure}
+\subsection{BOA menu}
+\begin{itemize}
+	\item \textbf{File}
+	\begin{itemize}
+		\item \textit{Load global config} - load \texttt{QCONF} configuration file and restore saved state. One can continue work from point where it was saved in.
+		\item \textit{Load plugin preferences} - load configuration of outline plugins stack.  
+		\item \textit{Save global preferences} - save configuration of outline plugins stack.
+	\end{itemize}
+	\item \textbf{Preferences}
+	\begin{itemize}
+		\item \textit{Plot original} - switch on displaying original outlines together with those processed by plugins. If there is no plugin active (or selected) it does nothing.
+		\item \textit{Plot head} - flag zero node of outline with arrow pointing to the outline direction.
+		\item \textit{Show history} - open history window.
+	\end{itemize}
+	\item \textbf{Plugin}
+	\begin{itemize}
+		\item \textit{Discard all} - remove all plugins from all frames. Discard any change introduced by them to the outline.
+		\item \textit{Re-apply all} - try to reload and apply plugins in plugin stack.
+	\end{itemize}
+	\item \textbf{Segmentation}
+	\begin{itemize}
+		\item \textit{Segment mask}
+	\end{itemize}
+	\item \textbf{Help}
+	\begin{itemize}
+		\item \textit{Help contents} - open system web browser and try to load this manual. Internet connection is required. 
+		\item \textit{About} - display version of QuimP and found plugins
+	\end{itemize}
+\end{itemize}
+
+\subsection{BOA segmentation workflow}
 \textbf{Step 1: Open an image and ensure the correct scale.}  QuimP can segment from a single image, or from an image stack
 (but not from a hyperstack).  Only 8-bit images can be used for segmentation and so you will be prompted to convert to 8-bit 
 if required.  QuimP uses the scale properties of the image to scale all output to
@@ -130,13 +179,6 @@ BOA can segment one, or more cells, each beginning and ending at any frame you w
 edit any segmentation at any frame, add/delete cells, truncate segmentations, and adjust the segmentation
 parameters for individual frames.
 
-\begin{figure}[ht]
-   \centering
-   \includegraphics[height=10cm]{boaWindow.png}
-   \caption{The BOA Window}
-   \label{boaWindow}
-\end{figure}
-
 \textbf{Step 3: Adding and deleting cells.} 
 
 To add a cell first scroll to the frame that you want to begin the segmentation at (either with the mouse wheel, or slider).  Using either the
@@ -154,7 +196,7 @@ To delete a cell click \textit{Delete cell}, and then click the centre marker of
 button again to leave delete mode.
 
 
-\textbf{Step 4: Adjusting segmentation parameters.}.  When a parameter is altered, BOA immediately re-computes the segmentation
+\textbf{Step 4: Adjusting segmentation parameters.}.\phantomsection\label{step4}  When a parameter is altered, BOA immediately re-computes the segmentation
 for all cells on the current frame with the new parameters (all cells share the same parameters).  Each has a minimum/maximum
 value that can not be exceeded.  To alter a parameter either enter a value into the text box, or use the arrows to increase/decrease in steps.
 First, try adjusting the \textit{Image F} parameter to improve the result.
@@ -234,6 +276,9 @@ Excel as a `comma separated file'  (see \ref{stats}).
 
 The BOA plugin alone outputs many useful statistics regarding cell morphology and migration, without the need to run any further analysis.
 Simply open the \textit{.stQP.csv} file in Excel, or use the accompanying scripts to load data into MATLAB (see section \ref{matlab}).
+
+\subsection{Filtering the outline}
+\label{sec:boaFilters}
 
 
 \subsection{A Few Words on Image Segmentation}
@@ -390,7 +435,8 @@ horizontal to the normalised length of the cell perimeter (0,1].
 Import $.maQP$ files as text images for further analysis in ImageJ. See Section~\ref{maps} for details
 and analysis of maps.
 
-\section{DIC images processing}
+\section{QuimP plugins}
+\subsection{DIC images processing}
 \label{sec:DIC}
 
 Differential interference contrast microscopy (DIC) enhances the contrast in unstained, transparent samples. DIC images can be easily interpreted and analyzed by biologists due to high resolution available and excellent contrast generated by steep gradients in optical path lengths and phase shifts between the two polarized beams. Nevertheless, very characteristic bas-relief observed in DIC images is the source of problems in automatic analysis of these images. The image contrast and the same the object’s boundaries are well defined in the shear angle but in direction perpendicular to it there is no contrast against to background and thus a lack of distinct edges of object. Moreover, strong gradient of image intensity at shear angle negatively influence standard image processing methods like global thresholding or edge detection producing insufficient results, with discontinuous regions or edges.
@@ -410,6 +456,11 @@ There are two important parameters: \textit{Shear} angle and \textit{Decay} (Fig
 	\label{fig:dicdialog}
 \end{figure} 
 
+\subsection{Random Walker Segmentation}
+\label{sec:RWSeg}
+
+The Random Walks Segmentation is based on the paper \cite{Grady2006}.
+ 
 \section{Data Files Explained}
 
 \subsection{Parameter Files - \textit{paQP} Files}

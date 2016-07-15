@@ -159,14 +159,14 @@ The BOA window is presented in Figure \ref{boaWindow}. There are \textbf{four} z
 		\item \textit{Plot head} - flag zero node of outline with arrow pointing to the outline direction.
 		\item \textit{Show history} - open history window.
 	\end{itemize}
-	\item \textbf{Plugin}
+	\item \hyperref[sec:QuimP_preplugins]{\textbf{Plugin}}
 	\begin{itemize}
 		\item \textit{Discard all} - remove all plugins from all frames. Discard any change introduced by them to the outline.
 		\item \textit{Re-apply all} - try to reload and apply plugins in plugin stack.
 	\end{itemize}
-	\item \textbf{Segmentation}
+	\item \hyperref[sec:Binary_seg]{\textbf{Segmentation}}
 	\begin{itemize}
-		\item \textit{Segment mask}
+		\item \textit{Segment mask} - perform binary segmentation on black-white mask 
 	\end{itemize}
 	\item \textbf{Help}
 	\begin{itemize}
@@ -312,7 +312,22 @@ Remember to recalculate the scale of the image when resizing, and to perform int
 Another common approach to improving image quality is to remove background noise using a `blank' image, one taken without any
 cells in the field.  This is particularly useful for removing shadows of dirt on the optical equipment, and correcting uneven backgrounds.
 
+\subsection{Binary segmentation} \label{sec:Binary_seg}
+The QuimP supports creation of Snake outlines directly from binary masks. As the active contour method is not used in this case, one can use another segmentation algorithms (e.g. \hyperref[sec:RWSeg]{Random Walker method}) to deal with problems that typically occur for active contour such as e.g. bad segmentation of cavities.
 
+To use binary segmentation, the black-white mask (8-bit image in ImageJ) should be prepared first. It has to be size of segmented image that is already loaded to BOA plugin. The number of slices in mask file should be less or equal to the number of slices present in segmented image. \textbf{The background pixels must have value 0 whereas objects can be defined by any other values within the range 1-255}.
+
+The binary segmentation plugin can be launched from BOA menu $(\textit{Segmentation}\rightarrow \textit{Binary segmentation})$
+
+\begin{figure}[hp]
+	\centering
+	\includegraphics[height=10cm]{BinarySeg.png}
+	\caption{The Binary Segmentation Window}
+	\label{BinarySegWindow}
+\end{figure}
+
+The mask can be either loaded from separate file (ImageJ formats are supported) or selected among already opened images in ImageJ. Results of segmentation are displayed in real-time on BOA window immediately after clicking \textit{Apply}. \textit{Cancel} closes the plugin window leaving last results of segmentation in BOA.    
+ 
 \section{Cell Tracking - ECMM Plugin}
 
 To extract data on local membrane velocity QuimP utilises our Electrostatic Contour Migration Method (ECMM).  
@@ -451,7 +466,8 @@ horizontal to the normalised length of the cell perimeter (0,1].
 Import $.maQP$ files as text images for further analysis in ImageJ. See Section~\ref{maps} for details
 and analysis of maps.
 
-\section{QuimP plugins}
+\section{QuimP preprocessing plugins}
+\label{sec:QuimP_preplugins}
 \subsection{DIC images processing}
 \label{sec:DIC}
 

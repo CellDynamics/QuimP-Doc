@@ -492,7 +492,32 @@ There are two important parameters: \textit{Shear} angle and \textit{Decay} (Fig
 \subsection{Random Walker Segmentation}
 \label{sec:RWSeg}
 
-The Random Walks Segmentation basis on the algorithm described from the paper \cite{Grady2006}.
+The Random Walks Segmentation algorithm is described in the paper \cite{Grady2006}. It belongs to the class of supervised segmentation algorithms what means that the user interaction is needed. In RW method a user has to specify a small set of pixels belonging to the desired object and
+(possibly) a set of pixels belonging to the background. Those pixels are called seed pixels and in this plugin they form the seed image. The seed image must be the size of segmented image whereas, the number of layers can be equal or smaller than in segmented image. The RW plugin can be called outside of QuimP directly from the QuimP Bar. The main interface is presented in figure \ref{fig:rwdialog}.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=8cm]{screenRandomWalk.png} 
+	\caption{Random Walker segmentation dialog}
+	\label{fig:rwdialog}
+\end{figure}
+
+\subsubsection{Random Walker Segmentation Workflow}
+
+The Random Walker plugin can be used with Binary Segmentation (\ref{sec:Binary_seg}) plugin available in BOA for creation of Snake outlines. Possible workflow is presented below:
+
+\begin{enumerate}
+	\item Open \textit{original image} that will be analysed
+	\item Open QuimP bar and select RW plugin
+	\item Choose \textit{original image} in \textbf{original image} selector
+	\item Click \textbf{Clone} to duplicate \textit{original image} and convert it to RGB format
+	\item Use \textbf{BG} and \textbf{FG} buttons to select background pen and foreground pen respectively. Use these pens for scribbling background and objects.
+	\item Set parameters - default are usually ok and click \textbf{Apply}. Segmented image will be shown.
+	\item Select \textit{original image} and start BOA from QuimP bar
+	\item Consult binary segmentation plugin documentation \ref{sec:Binary_seg} how to use your segmented image for generating BOA outlines   
+\end{enumerate}
+
+
  
 \section{Data Files Explained}
 

@@ -101,7 +101,7 @@ Once complete, data can be analysed in Excel or MATLAB.
    \centering
    \includegraphics[width=15cm]{quimpBar.png} % requires the graphicx package
    \caption{The QuimP bar}
-   \label{quimpBar}
+   \label{fig:quimpBar}
 \end{figure}
 
 
@@ -554,6 +554,10 @@ It is possible to set different segmentation parameters for each frame in BOA mo
 
 \textbf{Note 3} \\
 The \textit{QCONF} file can be loaded to Matlab using one of the free JSON parsers (tested with JSONlab\footnote{\url{http://uk.mathworks.com/matlabcentral/fileexchange/33381-jsonlab--a-toolbox-to-encode-decode-json-files}}).
+
+\subsubsection{Conversion between formats}
+QuimP supports conversion between old \textit{paQP} and new \textit{QCONF} formats. Simple tool for this purpose is available from the QuimP bar (see Figure \ref{fig:quimpBar}) under \textit{Tools} menu. A user is able to load either \textit{paQP} or \textit{QCONF} file which will be converted to opposite format ($\textit{paQP} \rightarrow \textit{QCONF}$ or $\textit{QCONF} \rightarrow \textit{paQP}$).
+
 \begin{table}[]
 	\centering
 	\caption{Relation among modules and generated files}

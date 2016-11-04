@@ -90,7 +90,7 @@ The key features of this version are:
 	
 \subsection{Change log}
 A changelog can be found at the QuimP web page at: \url{http://pilip.lnx.warwick.ac.uk/site/changes-report.html}.
-The current version of QuimP as well as the version history can be accessed directly from the QuimP Bar plugin (Fig. \ref{fig:quimpBar_menu}).
+The current version of QuimP as well as the version history can be viewed directly from the QuimP Bar plugin (Fig. \ref{fig:quimpBar_menu}).
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=8cm]{quimpBar_menu.png} % requires the graphicx package
@@ -520,7 +520,9 @@ The DIC plugin provided with QuimP allows to convert DIC samples into form more 
 Once loaded into ImageJ/Fiji click DIC filter in QuimP bar. Only 8-bits images are supported (256 gray levels).
 
 \textbf{Step 2: Set correct parameters}
-There are two important parameters: \textit{Shear} angle and \textit{Decay} (Fig. \ref{fig:dicdialog}). The \textit{Shear} parameter is the shear angle of DIC microscopy measured anticlockwise, whereas \textit{Decay} is described in details at \cite{Kam1998}. The value of \textit{Decay} depends mainly on the size of cells and the best results are achieved experimentally. 
+There are two important parameters: \textit{Shear} angle and \textit{Decay} (Fig. \ref{fig:dicdialog}). The \textit{Shear} parameter is the shear angle of DIC microscopy measured counterclockwise, whereas \textit{Decay} is described in details at \cite{Kam1998}. The \textit{Decay} factor depends mainly on the size of cells and the best results are usually achieved experimentally.
+
+Reconstructed image can be affected by linear pattern that can be filtered by running mean filter activated if \textit{Filter mask size} is greater than 0. Smoothing filter is applied before processing for angle perpendicular to given \textit{Shear}\footnote{Currently, smoothing can be used only with the following shear angles: 0, 45, 90, 135. For another values it will run for closest multiplicity of 45 degrees.}.    
    
 \begin{figure}[ht]
 	\centering

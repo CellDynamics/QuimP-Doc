@@ -594,6 +594,8 @@ The \textit{QCONF} file can be loaded to Matlab using one of the free JSON parse
 \subsubsection{Conversion between formats}
 QuimP supports conversion between old \textit{paQP} and new \textit{QCONF} formats. Simple tool for this purpose is available from the QuimP bar (see Figure \ref{fig:quimpBar}) under \textit{Tools} menu. A user is able to load either \textit{paQP} or \textit{QCONF} file which will be converted to opposite format ($\textit{paQP} \rightarrow \textit{QCONF}$ or $\textit{QCONF} \rightarrow \textit{paQP}$).
 
+This tool may no be able to perform full conversion, e.g. some data in target file may not be available even if they are present in source file(s). Please, refer to message displayed on every run of the tool.   
+
 \begin{table}[]
 	\centering
 	\caption{Relation among modules and generated files}

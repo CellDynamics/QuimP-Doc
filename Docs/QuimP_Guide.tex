@@ -561,10 +561,39 @@ The Random Walker plugin can be used with Binary Segmentation (\ref{sec:Binary_s
 %TODO Describe parameters.
 
 \section{Protrusion tracking}
-\label{sec:PtrotTracking}
+\label{sec:ProtTracking}
 
-%TODO Finish Protrusion tracking
- 
+Protrusion Analysis module allows investigating protrusion formation and dynamics.
+
+Protrusions are detected by finding local maxima in the motility map. After decoding from the motility map coordinates (\textit{outline index}, \textit{frame}) to Cartesian coordinates (\textit{x}, \textit{y}, \textit{time}), those points are considered as origins of the protrusions. Every origin point can be tracked backward and forward in time as long as its velocity is above certain level, related to the velocity of origin point.
+
+The module requires \textit{QCONF} file that contains full description of QuimP analysis. Particularly, the BOA, ECMM an Q Analysis modules should be run on \textit{QCONF} before using Protrusion Analysis.
+
+The user interface is shown below.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=16cm]{protrusion_window.png} 
+	\caption{Protrusion Analysis module dialog}
+	\label{fig:protrusiondialog}
+\end{figure}
+
+\begin{itemize}
+	\item Options section - contains mandatory settings for peaks detection.
+	\begin{itemize}
+		\item \textit{Drop} - defines how long the origin point $p(t0)$ from time frame $t0$ should be tracked forward and backward in term of the change of its velocity in time. The point for time frame $t$, $p(t)$ is tracked as long as its velocity $v_{p(t)}$ meets the criterion $v_{p(t)}>v_{p(t0)}*(1-Drop)$.
+		\item Sens - Peak detection sensitivity. The module uses standard ImageJ \texttt{Process$\rightarrow$Find Maxima} algorithm.
+	\end{itemize} 
+	\item Info section - shows basic information about found number of peaks, data range and gradient position.
+	\item Map plots - allows to select what map plots are produced after analysis. The \textit{Maxima} map contains also peaks points and tracks.  
+	\item Outline plots section - allows to plot cell outlines colored according to chosen algorithm. E.g. selecting \textit{Plot type}$\rightarrow$\textit{MOTILITY} and \textit{Mot Thr}=\textit{0}, one will get colored only those parts of outline that have velocity above 0.
+	\item Maxima plot section - contains different methods of data visualization.
+	\item Dynamic plot section - allows to produce image stacks with peaks and tracks changing in time.
+	\item Polar plot section - saves on disk polar plots showing cell averaged in time cell motility along its contour, oriented to selected gradient point. Point on the outline that is closest to selected gradient position is considered as the first one with polar coordinate $\theta=0^{\circ}$.
+\end{itemize}
+  
+Every time when \textit{Apply} button is used, the module run new analysis and produce all plots ticked in relevant sections.  
+
 \section{Data Files Explained}
 
 \subsection{Parameter files - new format vs. old format}

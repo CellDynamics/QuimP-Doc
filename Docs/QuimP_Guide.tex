@@ -5,6 +5,7 @@
 \usepackage{subfigure}
 \usepackage{titlesec}
 \usepackage{etoolbox}
+\usepackage{pifont,mdframed}
 % Workarounf of stupid bug: http://tex.stackexchange.com/questions/299969/titlesec-loss-of-section-numbering-with-the-new-update-2016-03-15
 \makeatletter
 \patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}
@@ -18,6 +19,12 @@
 \usepackage{datetime}
 \geometry{tmargin=2.5cm,bmargin=3cm,lmargin=1.5cm,rmargin=1.5cm}
 \newcommand{\sectionbreak}{\clearpage}
+
+\newenvironment{warning}
+{\par\begin{mdframed}[linewidth=1pt,linecolor=red]%
+		\begin{list}{}{\leftmargin=1cm
+				\labelwidth=\leftmargin}\item[\Large\ding{43}]}
+		{\end{list}\end{mdframed}\par}
 
 \begin{document}
 \title{QuimP Guide}
@@ -73,7 +80,7 @@ Dormann D, Libotte T, Weijer CJ, Bretschneider T. \href{https://www.ncbi.nlm.nih
 	\item Current development aims at making QuimP a sustainable resource for the biomedical community. This involves releasing QuimP as open source for academic use, creating a number of web tools for collaborative development and improved interaction with users.
 	\end{itemize}
 
-\section{QuimP 16.10.01 - what is new}
+\section{QuimP - what is new}
 
 \subsection{Summary}
 The key features of this version are:
@@ -138,7 +145,7 @@ Once complete, data can be analysed in Excel or MATLAB.
 
 
 \section{Cell Segmentation - BOA Plugin}
-
+\label{sec:BOAPlugin}
 QuimP utilises an active contour method to segment cells from the background of an image.  Typically, this will be a 
 time lapse movie containing a fluorescence channel, captured from a confocal microscope, but the BOA plugin will 
 segment any image which has bright objects on a dark background (note that phase contrast images can not be 
@@ -146,6 +153,9 @@ segmented with this method).  Attaining the best image for segmentation may requ
 as the combining of available fluorescence channels (the ideal case is that of an evenly white cell on a black 
 background).  Figure \ref{activeContour} describes the active contour method and provides insight as to BOA's 
 parameters.\\
+\begin{warning}
+	It is expected that objects being segmented have intensity higher than background. Active contour method implemented in BOA will not work for other cases.
+\end{warning}
 
 \begin{figure}[ht]
    \centering
@@ -167,7 +177,6 @@ that nodes can be added or removed (red nodes) to maintain an average
 distance between neighbours. (G) shows the final position of nodes.
 QuimP usually makes use of 100 or more nodes to extract high resolution
 cell outlines. \cite{Tyson2010}}
-%TODO check that citations work properly
    \label{activeContour}
 \end{figure}
 
@@ -522,7 +531,7 @@ Once loaded into ImageJ/Fiji click DIC filter in QuimP bar. Only 8-bits images a
 \textbf{Step 2: Set correct parameters}
 There are two important parameters: \textit{Shear} angle and \textit{Decay} (Fig. \ref{fig:dicdialog}). The \textit{Shear} parameter is the shear angle of DIC microscopy measured counterclockwise, whereas \textit{Decay} is described in details at \cite{Kam1998}. The \textit{Decay} factor depends mainly on the size of cells and the best results are usually achieved experimentally.
 
-Reconstructed image can be affected by linear pattern that can be filtered by running mean filter activated if \textit{Filter mask size} is greater than 0. Smoothing filter is applied before processing for angle perpendicular to given \textit{Shear}\footnote{Currently, smoothing can be used only with the following shear angles: 0, 45, 90, 135. For another values it will run for closest multiplicity of 45 degrees.}.    
+Reconstructed image can be affected by linear pattern that can be filtered by running mean filter activated if \textit{Filter mask size} is greater than 0. Smoothing filter is applied before processing for angle perpendicular to given \textit{Shear}\footnote{Currently, smoothing can be used only with the following shear angles: 0, 45, 90, 135. For another values it will run for closest multiplicity of 45 degrees.}.
    
 \begin{figure}[ht]
 	\centering
@@ -530,6 +539,10 @@ Reconstructed image can be affected by linear pattern that can be filtered by ru
 	\caption{DIC filter options dialog}
 	\label{fig:dicdialog}
 \end{figure} 
+
+\begin{warning}
+	If you got objects (e.g. cells) darker than background, you have to inverse the image to make it compatible with BOA module. Use \texttt{Edit$\leftarrow$Invert} to do that. Refer to section \ref{sec:BOAPlugin}
+\end{warning}
 
 \subsection{Random Walker Segmentation}
 \label{sec:RWSeg}

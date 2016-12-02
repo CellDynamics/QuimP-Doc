@@ -5,7 +5,7 @@
 \usepackage{subfigure}
 \usepackage{titlesec}
 \usepackage{etoolbox}
-\usepackage{pifont,mdframed}
+\usepackage{xcolor}
 % Workarounf of stupid bug: http://tex.stackexchange.com/questions/299969/titlesec-loss-of-section-numbering-with-the-new-update-2016-03-15
 \makeatletter
 \patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}
@@ -19,12 +19,6 @@
 \usepackage{datetime}
 \geometry{tmargin=2.5cm,bmargin=3cm,lmargin=1.5cm,rmargin=1.5cm}
 \newcommand{\sectionbreak}{\clearpage}
-
-\newenvironment{warning}
-{\par\begin{mdframed}[linewidth=1pt,linecolor=red]%
-		\begin{list}{}{\leftmargin=1cm
-				\labelwidth=\leftmargin}\item[\Large\ding{43}]}
-		{\end{list}\end{mdframed}\par}
 
 \begin{document}
 \title{QuimP Guide}
@@ -152,10 +146,13 @@ segment any image which has bright objects on a dark background (note that phase
 segmented with this method).  Attaining the best image for segmentation may require some pre-processing, such 
 as the combining of available fluorescence channels (the ideal case is that of an evenly white cell on a black 
 background).  Figure \ref{activeContour} describes the active contour method and provides insight as to BOA's 
-parameters.\\
-\begin{warning}
-	It is expected that objects being segmented have intensity higher than background. Active contour method implemented in BOA will not work for other cases.
-\end{warning}
+parameters.
+\\\\
+\noindent\fcolorbox{red}{yellow}{
+	\parbox{\textwidth} {
+		It is expected that objects being segmented have intensity higher than background. Active contour method implemented in BOA will not work for other cases.
+	}
+}
 
 \begin{figure}[ht]
    \centering
@@ -541,9 +538,11 @@ Reconstructed image can be affected by linear pattern that can be filtered by ru
 	\label{fig:dicdialog}
 \end{figure} 
 
-\begin{warning}
-	If you got objects (e.g. cells) darker than background, you have to inverse the image to make it compatible with BOA module. Use \texttt{Edit$\leftarrow$Invert} to do that. Refer to section \ref{sec:BOAPlugin}
-\end{warning}
+\noindent\fcolorbox{red}{yellow}{
+	\parbox{\textwidth} {
+		If you got objects (e.g. cells) darker than background, you have to inverse the image to make it compatible with BOA module. Use \texttt{Edit$\leftarrow$Invert} to do that. Refer to section \ref{sec:BOAPlugin}
+	}
+}
 
 \subsection{Random Walker Segmentation}
 \label{sec:RWSeg}

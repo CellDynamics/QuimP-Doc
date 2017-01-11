@@ -549,6 +549,7 @@ Reconstructed image can be affected by linear pattern that can be filtered by ru
 
 The Random Walks Segmentation algorithm is described in the paper \cite{Grady2006}. It belongs to the class of supervised segmentation algorithms what means that the user interaction is needed. In RW method a user has to specify a small set of pixels belonging to the desired object and
 (possibly) a set of pixels belonging to the background. Those pixels are called \textit{seed pixels} and in this plugin they form the seed image. The seed image must be the size of segmented image whereas, the number of layers can be either equal to number of layers in segmented image or set to 1. The RW plugin can be called outside of QuimP directly from the QuimP Bar. The main interface is presented in figure \ref{fig:rwdialog}.
+For stacks, if only initial seed is given, the RW plugin generates seeds for \textit{n}+1 frame using results of segmentation of \textit{n}-th frame. First, objects masks obtained at frame \textit{n} are shrunk by algorithm selected in \textbf{Shrink method} with \textbf{Shrink power}. Results define object's seeds for next frame. Then, the same objects (unmodified) are expanded by the same algorithm with \textbf{Expand power} and then inverted to define seeds for background for next frame.   
 
 \subsubsection{Random Walker Segmentation Workflow}
 
@@ -575,6 +576,8 @@ The Random Walker plugin can be used with Binary Segmentation (\ref{sec:Binary_s
 \end{figure}
 
 \textbf{Shrink power} - controls how much current segmented frame is processed to get seed for the next frame. This parameter depends on selected \textbf{Shrink method} and dynamic of the cell motility. Higher values of \textbf{Shrink power} should be selected if there are significant differences between frames (objects move faster). Optimal values for \textit{MORPHO} are 3 to 5, \textit{OUTLINE} works better with \textbf{Shrink power} around 13.
+
+\textbf{Expand power} - the same as \textbf{Shrink power} but concerns background.
 
 \textbf{Shrink method} - \textit{OUTLINE} or \textit{MORPHO}. This parameter controls how the next frame seed is generated from the current segmented frame. It is used only when stacks are processed and the initial seed is a single image. The \textit{OUTLINE} uses ANA contour shrinking whereas \textit{MORPHO} is based on morphological erosion and dilatation. 
 

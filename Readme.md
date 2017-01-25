@@ -26,6 +26,6 @@ pdflatex QuimP_Guide.tex
 The final document is in `Docs/QuimP_Guide.pdf`.
 
 # Links
-- QuimP homepage: <warwick.ac.uk/quimp>
+- QuimP homepage: <http://warwick.ac.uk/quimp>
 - QuimP GitHub page (contains Wiki and bug tracker): <https://github.com/CellDynamics/QuimP>
 - Html version of manual: <http://pilip.lnx.warwick.ac.uk/docs/develop/QuimP_Guide.html>

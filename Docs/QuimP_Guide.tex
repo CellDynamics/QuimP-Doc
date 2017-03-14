@@ -548,7 +548,7 @@ Reconstructed image can be affected by linear pattern that can be filtered by ru
 
 \subsection{Random Walker Segmentation}
 \label{sec:RWSeg}
-
+% TODO Update plugin after changes in 13.03.01
 The Random Walks Segmentation algorithm is described in the paper \cite{Grady2006}. It belongs to the class of supervised segmentation algorithms what means that the user interaction is needed. In RW method a user has to specify a small set of pixels belonging to the desired object and
 (possibly) a set of pixels belonging to the background. Those pixels are called \textit{seed pixels} and in this plugin they form the seed image. The seed image must be the size of segmented image whereas, the number of layers can be either equal to number of layers in segmented image or set to 1. The RW plugin can be called outside of QuimP directly from the QuimP Bar. The main interface is presented in figure \ref{fig:rwdialog}.
 For stacks, if only initial seed is given, the RW plugin generates seeds for \textit{n}+1 frame using results of segmentation of \textit{n}-th frame. First, objects masks obtained at frame \textit{n} are shrunk by algorithm selected in \textbf{Shrink method} with \textbf{Shrink power}. Results define object's seeds for next frame. Then, the same objects (unmodified) are expanded by the same algorithm with \textbf{Expand power} and then inverted to define seeds for background for next frame.   
@@ -589,7 +589,7 @@ The Random Walker plugin (Figure \ref{fig:rwdialog}) can be used with Binary Seg
 
 \subsection{Mask generator}
 \label{sec:MaskGenerator}
-
+% TODO add how to call plugin from macro (17.03.01)
 This plugin can convert cells contours into binary image mask. The cell shape is represented by white area being a filled cell contour whereas the background in black. Masks are widely used in computer graphics for selecting regions of image for processing and analysing. ImageJ is also equipped with relevant procedures that allow for explicit processing masked regions. Therefore, this plugin make it possible to continue analysis of the sample outside the QuimP infrastructure.
 
 Mask Generator plugin works with \textit{QCONF} files saved by BOA plugin. It is not possible to use it with old file format (paQP) unless it has been converted to \textit{QCONF} by Format Converter (available from QuimP toolbar menu). By default, the mask image is displayed on the screen and saved on disk at location of input \textit{QCONF} file with suffix \textit{snakemask}.

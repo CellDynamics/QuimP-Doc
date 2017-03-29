@@ -62,7 +62,7 @@ Please, make the following citation in any publication related to our software:
 \end{enumerate}
 
 \section{PDFs and online versions of this manual}
-The user manual exists in two versions, \textit{final} and \textit{development}. The final documentation is related to the current official release of QuimP, whereas the development version evolves together with the software, following upcoming features, bugfixes, etc.
+The user manual exists in two versions, \textit{final} and \textit{development}. The final documentation is (usually) related to the current official release of QuimP, whereas the development version evolves together with the software, following upcoming features, bugfixes, etc.
 
 The most recent documentation can be downloaded from:
 \begin{enumerate}
@@ -560,7 +560,6 @@ Reconstructed image can be affected by linear pattern that can be filtered by ru
 
 \subsection{Random Walker Segmentation}
 \label{sec:RWSeg}
-% TODO Update plugin after changes in 17.03.01
 The Random Walks Segmentation algorithm is described in the paper \cite{Grady2006}. It belongs to the class of supervised segmentation algorithms what means that the user interaction is needed. In RW method a user has to specify a small set of pixels belonging to the desired object and
 (possibly) a set of pixels belonging to the background. Those pixels are called \textit{seed pixels} and in this plugin they form the seed image. The seed image must be the size of segmented image whereas, the number of layers can be either equal to number of layers in segmented image or set to 1. The RW plugin can be called outside of QuimP directly from the QuimP Bar. The main interface is presented in Figure \ref{fig:rwdialog}. The window is divided into eight sections:
 \begin{enumerate}
@@ -574,51 +573,58 @@ The Random Walks Segmentation algorithm is described in the paper \cite{Grady200
 	\item Display options section
 \end{enumerate}
 
-\textbf{Image section} - here user can select image that will be segmented. It must be grayscale image either 8 or 16 bits.
-
-\textbf{Seeds section} - defines source of the seed image. the following options are available:
-\begin{itemize}
-	\item RGB image - user can provide RGB image where foreground pixels are labelled with pure red colour and background with pure green. The z-dimension of the seed image must be either one or size of segmented image. If there is only one slice, the seed will be applied to the first slice of segmented image. For the \textit{n}+1 slice the seed will be generated using results of segmentation of \textit{n}-th slice processed by algorithm selected in \textit{Inter-processing section}.
-	\item Create image - user can create RGB image cloned from segmented image selected in \textit{Image section} (\textit{Clone} button). The \textit{FG} and \textit{BG} buttons select foreground and background pen respectively.
-	\item Mask image
-	\item QCONF file   
-\end{itemize}
-  
-For stacks, if only initial seed is given, the RW plugin will generate seeds for \textit{n}+1 frame using results of segmentation of \textit{n}-th frame. First, objects masks obtained at frame \textit{n} are shrunk by algorithm selected in \textbf{Shrink method} with \textbf{Shrink power}. Results define object's seeds for next frame. Then, the same objects (unmodified) are expanded by the same algorithm with \textbf{Expand power} and then inverted to define background seeds for next frame.   
-
-\subsubsection{Random Walker Segmentation Workflow}
-
-The Random Walker plugin (Figure \ref{fig:rwdialog}) can be used with Binary Segmentation (\ref{sec:Binary_seg}) plugin available in BOA for creation of Snake outlines. Possible workflow is presented below:
-
-\begin{enumerate}
-	\item Open \textit{original image} that will be analysed
-	\item Open QuimP bar and select RW plugin
-	\item Choose \textit{original image} in \textbf{original image} selector
-	\item Click \textbf{Clone} to duplicate \textit{original image} and convert it to RGB format. Note that seed image has always size of the segmented data. Thus, if one processes stack of images, he is initially supposed to provide the stack of seeds as well. Otherwise, one can cut (using ImageJ tools) only one slice and seed it manually, then Random Walk plugin will generate seeds for subsequent slices using method selected in \textit{Shrink method} (see Fig.\ref{fig:rwdialog}).  
-	\item Use \textbf{BG} and \textbf{FG} buttons to select background pen and foreground pen respectively. Scribble background and foreground objects.
-	\item Set parameters - default values are usually fine, click \textbf{Apply}. Segmented image will appear when process finishes.
-	\item Select \textit{original image} and start BOA from QuimP bar
-	\item Consult binary segmentation plugin documentation \ref{sec:Binary_seg} how to use your segmented image for generating BOA outlines   
-\end{enumerate}
-
-\subsubsection{Random Walker Segmentation Parameters}
-
-\textbf{Shrink power} - control how much current segmented frame is processed to get seed for the next frame. This parameter depends on selected \textbf{Shrink method} and dynamic of the cell motility. Higher values of \textbf{Shrink power} should be selected if there are significant differences between frames (objects move faster). Optimal values for \textit{MORPHO} are 3 to 5, \textit{OUTLINE} works better with \textbf{Shrink power} around 13.
-
-\textbf{Expand power} - the same as \textbf{Shrink power} but concerns background.
-
-\textbf{Shrink method} - \textit{OUTLINE} or \textit{MORPHO}. This parameter controls how the next frame seed is generated from the current segmented frame. It is used only when stacks are processed and the initial seed is a single image. The \textit{OUTLINE} uses ANA contour shrinking whereas \textit{MORPHO} is based on morphological erosion and dilatation. 
-
-\textbf{Show seeds} - produce seed preview at the end of segmentation. May be useful to select optimal \textbf{Shrink power}. To get best result ay part of foreground object should not be seeded as background and vice versa. 
-
-\textbf{Show preview} - display segmented frame of stack.
-
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=8cm]{screenRandomWalk.png} 
 	\caption{Random Walker segmentation dialog}
 	\label{fig:rwdialog}
 \end{figure}
+
+\textbf{Image section} - here user can select image that will be segmented. It must be grayscale image either 8 or 16 bits.
+
+\textbf{Seeds section} - defines source of the seed image. The following options are available:
+\begin{itemize}
+	\item RGB image - user can provide RGB image where foreground pixels are labeled with pure red colour and background with pure green. The z-dimension of the seed image must equal to one or to the number of slices of segmented image. If there is only one slice of the seed given, it will be applied to the first slice of segmented image. For the \textit{n}+1 slice the seed will be generated using results of segmentation of \textit{n}-th slice processed by algorithm selected in \textit{Inter-processing section}.
+	\item Create image - user can create RGB image cloned from the image selected in \textit{Image section} (\textit{Clone} button). The \textit{FG} and \textit{BG} buttons select foreground and background pen respectively.
+	\item Mask image - user can provide binary image, where white areas will stand for the foreground seed. This mode is intended for using results of Active Contour segmentation as input to Random Walk algorithm. The seed stack should have the same size as segmented image. The foreground labels can be larger than objects they label because they are pre-processed (usually shrank) by algorithm selected in \textit{Inter-processing section}. Typical use case is to perform rough segmentation in BOA module using fail safe parameters which usually lead to rough segmentation and then to use Random Walk plugin to get fine one. The improvements should clearly visible especially in concave areas where Active Contour method fails.     
+	\item QCONF file - the same as \textit{Mask image} but user can provide \textit{QCONF} file saved in BOA module.    
+\end{itemize}
+  
+\textbf{Dynamic section} - its content depends on selected seed source.
+
+\textbf{Inter-processing section} - it controls how binary masks should be transformed to seeds internally. This process applies when seeds are given as results of segmentation from other method (\textit{Mask image} or \textit{QCONF file}) or there is only one slice of seeds provided (\textit{RGB image}). Binary mask is shrunk by algorithm selected in \textbf{Shrink method} with \textbf{Shrink power}. Results define object's seeds for next frame. Then, the same mask (unmodified) is expanded by the same algorithm but with \textbf{Expand power} and then inverted to define background seeds for the next frame. Options available here are:
+\begin{itemize}
+	\item Shrink method:
+	\begin{itemize}
+		\item \textit{NONE} - no shrinking or expanding. Mask is used directly as seed
+		\item \textit{CONTOUR} - the ANA contour processing algorithm is used for modifying masks. They are first outlined then vectorised and finally processed. This approach preserves shape of the contour. Parameters \textit{Shrink power} and \textit{Expand power} relate to number of pixels to shrink and expand the contour respectively. 
+		\item \textit{MORPHOLOGICAL} - masks are processed by morphological erosion. Parameters \textit{Shrink power} and \textit{Expand power} relate to number of algorithm iterations. 
+	\end{itemize}
+	\item Binary filter - applied after processing by \textit{Shrink method}. It is intended to remove binary noise, isolated pixels, etc, that could give false seeding:
+	\begin{itemize}
+		\item \textit{NONE} - filtering disabled
+		\item \textit{SIMPLE} - performs one iteration of morphological opening operation.
+		\item \textit{MEDIAN} - median filtering with kernel of radius 2.
+	\end{itemize}
+\end{itemize}
+
+\textbf{Local mean} - this option can improve behavior of the algorithm in areas with high gradient of intensity, usually at cell cortex, preserving cell boundaries. This method works only with seeds provided as \textit{Mask image} or \textit{QCONF file}. Moreover, masks should be larger than the object itself. \textit{Window} parameter stands for the size (odd) of the sampling window used for computing local mean intensity.   
+
+\textbf{Post-processing section} - it covers filtering of results applied after segmentation. The options are:
+\begin{itemize}
+	\item Hat filter - it tries to remove small inclusions in contour that typically came from vesicles located near cell edge. The algorithm is described \href{http://pilip.lnx.warwick.ac.uk/site/apidocs/index.html}{here}.
+	\begin{itemize}
+		\item \textit{srAlev} - acceptance level beyond the inclusion is removed
+		\item \textit{srNum} - number of inclusions to remove. All they must have rank above \textit{srAlev}
+		\item \textit{srWindow} - size of the processing window in pixels. Smaller window is more sensitive to small inclusions. 
+	\end{itemize} 
+	\item Binary filter - stands for the final filtering, the same algorithm are used as in \textit{Inter-processing section}.
+\end{itemize}
+
+\textbf{Display options section} - allows to show real time preview of each segmented frame and seeds computed as results of \textit{Iter-processing} binary masks. This option can be used for verifying \textit{Shrink power} and \textit{Expand power} settings. 
+
+\subsubsection{Random Walker Segmentation Workflow}
+%TODO Add exampample of fine processing
 
 \subsection{Mask generator}
 \label{sec:MaskGenerator}

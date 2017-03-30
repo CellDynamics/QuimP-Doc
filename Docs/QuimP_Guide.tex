@@ -224,10 +224,11 @@ The BOA window is presented in Figure \ref{boaWindow}. There are \textbf{four} h
 	\begin{itemize}
 		\item \textit{Discard all} - remove all plugins from all frames. Discard any change introduced by them to the outline.
 		\item \textit{Re-apply all} - try to reload and apply plugins in plugin stack.
+		\item \textit{Populate plugins} - copy plugin tree from current frame to all frames and apply it. Do not run segmentation. This option can be useful together with \nameref{sec:Binary_seg}.
 	\end{itemize}
 	\item \textbf{Segmentation}
 	\begin{itemize}
-		\item \hyperref[sec:Binary_seg]{\textit{Segment mask}} - perform binary segmentation on black-white mask 
+		\item \hyperref[sec:Binary_seg]{\textit{Binary segmentation}} - perform binary segmentation on black-white mask 
 		\item \textit{Clear all} - remove all segmentation results and set all parameters to their default values
 	\end{itemize}
 	\item \textbf{Help}
@@ -381,14 +382,15 @@ To use binary segmentation, the black-white mask (8-bit image in ImageJ) should 
 
 The binary segmentation plugin can be launched from BOA menu $(\textit{Segmentation}\rightarrow \textit{Binary segmentation})$
 
-\begin{figure}[hp]
+\begin{figure}[!h]
 	\centering
 	\includegraphics[height=8cm]{BinarySeg.png}
 	\caption{The Binary Segmentation Window}
 	\label{BinarySegWindow}
 \end{figure}
 
-The mask can be either loaded from separate file (ImageJ formats are supported) or selected among already opened images in ImageJ. Results of segmentation are displayed in real-time on BOA window immediately after clicking \textit{Apply}. \textit{Cancel} closes the plugin window leaving last results of segmentation in BOA.    
+The mask can be either loaded from separate file (ImageJ formats are supported) or selected among already opened images in ImageJ. Results of segmentation are displayed in real-time on BOA window immediately after clicking \textit{Apply}. \textit{Cancel} closes the plugin window leaving last results of segmentation in BOA. 
+Resulting outline can be smoothed by e.g. \texttt{MeanSnakefilter} available in the plugin area (see figure \ref{boaWindow}). Filter can be applied for selected frames only or populated for the whole sequence by $(\textit{Plugin}\rightarrow \textit{Populate plugins})$
  
 \section{Cell Tracking - ECMM Plugin}
 

@@ -617,7 +617,7 @@ The Random Walks Segmentation algorithm is described in the paper \cite{Grady200
 	\item Hat filter - it tries to remove small inclusions in contour that typically came from vesicles located near cell edge. The algorithm is described \href{http://pilip.lnx.warwick.ac.uk/site/apidocs/index.html}{here}.
 	\begin{itemize}
 		\item \textit{srAlev} - acceptance level beyond the inclusion is removed
-		\item \textit{srNum} - number of inclusions to remove. All they must have rank above \textit{srAlev}
+		\item \textit{srNum} - number of inclusions to remove. All they must have rank above \textit{srAlev}. If this parameter is set to 0, any inclusion with rank above \textit{srAlev} will be removed. 
 		\item \textit{srWindow} - size of the processing window in pixels. Smaller window is more sensitive to small inclusions. 
 	\end{itemize} 
 	\item Binary filter - stands for the final filtering, the same algorithm are used as in \textit{Inter-processing section}.

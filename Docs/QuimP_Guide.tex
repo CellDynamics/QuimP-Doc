@@ -479,11 +479,13 @@ same resolution and number of frames as that used for segmentation.
 are displayed on the image.  Changing the cortex width will update the image overlay.
 Choose a channel to record data in from the drop down menu.
 
-ANA provides 3 further options
+ANA provides 5 further options
 \begin{itemize}
 	\item Normalise to interior - Toggle normalisation of intensity sampling to the cells interior (recommended).
 	\item Sample at Ch1 locations - Sample at the same locations as determined for channel 1.
 	\item Clear stored measurements - Removal all fluorescence measurements from QuimP's files.
+	\item New image with outlines? - Produce copy of input image stack with inner and outer outlines in it. Outlines are drawn at overlay\footnote{\url{https://imagej.nih.gov/ij/docs/guide/146-11.html}}. Flatten the image before using it in another software.  
+	\item Copy results to IJ table? - Open ImageJ table filled with fluorescence statistics computed for selected channel (the same are written to\textit{ stQP.csv} file).
 \end{itemize}
 
 Click \textit{OK}.

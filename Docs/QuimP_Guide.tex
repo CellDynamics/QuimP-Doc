@@ -485,7 +485,8 @@ ANA provides 5 further options
 	\item Sample at Ch1 locations - Sample at the same locations as determined for channel 1.
 	\item Clear stored measurements - Removal all fluorescence measurements from QuimP's files.
 	\item New image with outlines? - Produce copy of input image stack with inner and outer outlines in it. Outlines are drawn at overlay\footnote{\url{https://imagej.nih.gov/ij/docs/guide/146-11.html}}. Flatten the image before using it in another software.  
-	\item Copy results to IJ table? - Open ImageJ table filled with fluorescence statistics computed for selected channel (the same are written to\textit{ stQP.csv} file).
+	\item Copy results to IJ table? - Open standard ImageJ table\footnote{Standard table always is named \textit{Results}} filled with fluorescence statistics computed for selected channel (the same are written to\textit{stQP.csv} file). Note that is an experiment contains more than one cell, ANA will be run for each of them separately but finally the table will always contain statistics for all cells. 
+	\item Append results to IJ table - works as \textit{Copy results to IJ table?} but does not clear table before. Can be used for collecting results from different experiments. 
 \end{itemize}
 
 Click \textit{OK}.

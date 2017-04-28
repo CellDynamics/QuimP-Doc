@@ -378,7 +378,7 @@ Remember to recalculate the scale of the image when resizing, and to perform int
 Another common approach to improving image quality is to remove background noise using a `blank' image, one taken without any
 cells in the field.  This is particularly useful for removing shadows of dirt on the optical equipment, and correcting uneven backgrounds.
 
-\subsection{Binary segmentation} \label{sec:Binary_seg}
+\subsection{Binary mask segmentation} \label{sec:Binary_seg}
 The QuimP supports creation of Snake outlines directly from binary masks. As the active contour method is not used in this case, one can use another segmentation algorithms (e.g. \hyperref[sec:RWSeg]{Random Walker method}) to deal with problems that typically occur for active contour such as e.g. bad segmentation of cavities.
 
 To use binary segmentation, the black-white mask (8-bit image in ImageJ) should be prepared first. It has to be size of segmented image that is already loaded to BOA plugin. The number of slices in mask file should be less or equal to the number of slices present in segmented image. \textbf{The background pixels must have value 0 whereas objects can be defined by any other values within the range 1-255}.
@@ -392,7 +392,7 @@ The binary segmentation plugin can be launched from BOA menu $(\textit{Segmentat
 	\label{BinarySegWindow}
 \end{figure}
 
-The mask can be either loaded from separate file (ImageJ formats are supported) or selected among already opened images in ImageJ. Results of segmentation are displayed in real-time on BOA window immediately after clicking \textit{Apply}. \textit{Cancel} closes the plugin window leaving last results of segmentation in BOA. 
+The mask can be either loaded from separate file (ImageJ formats are supported) or selected among already opened images in ImageJ. Results of segmentation are displayed in real-time on BOA window immediately after clicking \textit{Apply}. \textit{Cancel} closes the plugin window leaving last results of segmentation in BOA. If \textit{Clear} is selected each use of \textit{Apply} will clear current outlines in BOA. If it is unselected, outline will be added to BOA. Note that each click on \textit{Apply} will create new outline even if non of plugin parameters is modified. 
 Resulting outline can be smoothed by e.g. \texttt{MeanSnakefilter} available in the plugin area (see figure \ref{boaWindow}). Filter can be applied for selected frames only or populated for the whole sequence by $(\textit{Plugin}\rightarrow \textit{Populate plugins})$
  
 \section{Cell Tracking - ECMM Plugin}

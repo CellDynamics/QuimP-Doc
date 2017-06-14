@@ -210,6 +210,7 @@ The BOA window is presented in Figure \ref{boaWindow}. There are \textbf{four} h
 \end{figure}
 
 \subsection{BOA menu}
+\label{sec:boaMenu}
 \begin{itemize}
 	\item \textbf{File}
 	\begin{itemize}
@@ -223,11 +224,11 @@ The BOA window is presented in Figure \ref{boaWindow}. There are \textbf{four} h
 		\item \textit{Plot head} - flag zero node of outline with arrow pointing to the outline direction.
 		\item \textit{Show history} - open history window.
 	\end{itemize}
-	\item \hyperref[sec:QuimP_preplugins]{\textbf{Plugin}}
+	\item \hyperref[sec:boaFilters]{\textbf{Plugin}}
 	\begin{itemize}
-		\item \textit{Discard all} - remove all plugins from all frames. Discard any change introduced by them to the outline.
-		\item \textit{Re-apply all} - try to reload and apply plugins in plugin stack.
-		\item \textit{Populate plugins} - copy plugin tree from current frame to all frames and apply it. Do not run segmentation. This option can be useful together with \nameref{sec:Binary_seg}.
+		\item \textit{Discard all} - remove all plugins from all frames. Discard all changes introduced by them to the outline.
+		\item \textit{Re-apply all} - try to reload plugins from disk and apply them to outlines.
+		\item \textit{Populate plugins} - copy plugin tree from current frame to all other frames and apply it to  outlines. Do not run segmentation. This option can be useful together with \nameref{sec:Binary_seg}.
 	\end{itemize}
 	\item \textbf{Segmentation}
 	\begin{itemize}
@@ -326,7 +327,7 @@ the cell's movements.
 
 \textbf{Step 5: Segmenting multiple frames.}  When happy with the segmentation on the first frame, hit \textit{SEGMENT} to segment
 the cell (or cells) in the following frames.  The algorithm may fail at a particular frame and a warning will be printed to the log window,
-at which point you can alter parameters.
+at which point you can alter parameters.plugins
 
 \textbf{Step 6: Correcting segmentations.}  In the case of failure, or incorrect results, you have 3 options:
 
@@ -339,6 +340,7 @@ Scroll to edit other frames.  When finished, leave edit mode by clicking \textit
 Optionally, click \textit{SEGMENT} to apply these new parameters to the following frames.
 \item \textbf{3 - Truncate segmentations.}  Scroll to the first frame where an error occurred and click \textit{Truncate Seg'}.  Click the centre
 of a cell to remove all segmentations from the current frame onwards.
+\item \textbf{4 - Use BOA plugins.} Try to apply available BOA filters for particular frames or for whole stack. Check \textit{Plugin} menu (Section \ref{sec:boaMenu}) and Section \ref{sec:boaFilters} for details.
 \end{itemize}
 
 
@@ -361,7 +363,26 @@ Simply open the \textit{.stQP.csv} file in Excel, or use the accompanying script
 
 \subsection{Filtering the outline}
 \label{sec:boaFilters}
-%TODO Finish Filtering the outline
+BOA module supports external plugins that pos-process outlines on current frame. Plugins are standalone \textit{jar} files that can be developed by other scientists and distributed independently from QuimP. Available plugins are discovered on BOA launch by scanning default location, which is Fiji/plugins folder. There is no need of any additional action, discovered plugins are available in filter stack on right (see Fig. \ref{boaWindow}). There are three slots in the stack. Filters are applied in order from most top to bottom, next filter uses result of previous one. Any action on filters relates only to current frame (thus each frame can have different filter stack) unless \textit{SEGMENTATION} button is clicked. Automatic segmentation propagate most recent configuration from starting frame (that means all options available in BOA window) to all subsequent frames. Modified contour is drawn in standard yellow colour, whereas red denotes original unprocessed result of segmentation (Fig. \ref{boafilter}). Any further processing in QuimP workflow (e.g. ECMM or ANA) applies to filtered outline. Refer to section \ref{sec:boaMenu} for other options related to filters.
+\begin{figure}[ht]
+	\centering
+	\includegraphics[height=7cm]{boafilter.png} % requires the graphicx package
+	\caption{BOA filters in action.}
+	\label{boafilter}
+\end{figure}
+
+Plugin tree is always applied to whole frame and all outlines that are present on it. There is no possibility to filter particular outlines only. If filter contains an user interface, it can be accessed by \textit{GUI} button (Fig. \ref{boafilter}).
+
+Default installation of QuimP contains four BOA filters:
+\begin{itemize}
+	\item \textbf{HatSnakeFilter} Removes small protrusions from outlines.
+	\item \textbf{MeanSnakeFilter} Apply running mean filter to outlines.
+	\item \textbf{SetHeadSnakeFilter} Allow to choose first node in snake.
+	\item \textbf{RandomWalkSnakeFilter} Perform Random Walk segmentation of frame using Active Contour results (outlines) as initial seed. Refer to section \ref{sec:RWSeg} for more details about Random Walk.
+	\item \textbf{HedgeHogSnakeFilter} For testing purposes.
+\end{itemize}
+
+Filters that have been discovered and properly loaded are marked in green color. This is standard behavior when user start analysis from scratch. If BOA configuration has been restored from \textit{QCONF} file filters (if any were used) are marked in red colour to denote that result of segmentation (that is stored in QCONF file together with raw unprocessed outlines) was processed by filter stack but none of those filters is loaded yet to BOA. In this mode user can browse frames, check segmentation parameters, etc. even if a filter is physically not available in his configuration. Option \textit{Plugin}$\rightarrow$\textit{Re-apply all} will try to load all necessary filters from disk and apply them to each frame where they were used.  
 
 \subsection{A Few Words on Image Segmentation}
 

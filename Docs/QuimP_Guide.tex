@@ -570,7 +570,7 @@ The DIC plugin provided with QuimP allows to convert DIC samples into form more 
 Once loaded into ImageJ/Fiji click DIC filter in QuimP bar. Only 8-bits images are supported (256 gray levels).
 
 \textbf{Step 2: Set correct parameters}
-There are two important parameters: \textit{Shear} angle and \textit{Decay} (Fig. \ref{fig:dicdialog}). The \textit{Shear} parameter is the shear angle of DIC microscopy measured counterclockwise, whereas \textit{Decay} is described in details at \cite{Kam1998}. The \textit{Decay} factor depends mainly on the size of cells and the best results are usually achieved experimentally.
+There are two important parameters: \textit{Shear} angle and \textit{Decay} (Fig. \ref{fig:dicdialog}). The \textit{Shear} parameter is the shear angle of DIC microscopy measured counterclockwise, whereas \textit{Decay} is described in details at \cite{Kam1998}. The \textit{Decay} factor depends mainly on the size of cells and the best results are usually achieved experimentally. \textit{Invert output} option inverses colorscale in reconstructed image.
 
 Reconstructed image can be affected by linear pattern that can be filtered by running mean filter activated if \textit{Filter mask size} is greater than 0. Smoothing filter is applied before processing for angle perpendicular to given \textit{Shear}\footnote{Currently, smoothing can be used only with the following shear angles: 0, 45, 90, 135. For another values it will run for closest multiplicity of 45 degrees.}.
    
@@ -583,7 +583,7 @@ Reconstructed image can be affected by linear pattern that can be filtered by ru
 
 \noindent\fcolorbox{red}{yellow}{
 	\parbox{\textwidth} {
-		If objects (cells) in reconstructed image are darker than background, the image should be inversed before processing it in BOA module. Use \texttt{Edit$\rightarrow$Invert} to do that. Refer to section \ref{sec:BOAPlugin}.
+		If objects (cells) in reconstructed image are darker than background, the image should be inverted before further processing in BOA module. One can use ImageJ option \texttt{Edit$\rightarrow$Invert} or tick \textit{Invert output} in plugin window. Refer to section \ref{sec:BOAPlugin}.
 	}
 }
 

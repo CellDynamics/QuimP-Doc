@@ -6,7 +6,7 @@ This is the official documentation for QuimP software.
 
 This repository contains `LaTeX` source of the QuimP documentation. Compiled *pdf* file related to currently released version of QuimP is available at [QuimP homepage](http://warwick.ac.uk/quimp). The **develop** branch follows development version of QuimP, whereas **master** contains documentation for already released QuimP.
 
-Both branches are compiled to Html/PDF by script that runs daily arond 6am and then uploaded to:
+Both branches are compiled to Html/PDF by script that runs daily around 6am and then uploaded to:
 
 1. <http://pilip.lnx.warwick.ac.uk/docs/develop/QuimP_Guide.html> - develop branch
 2. <http://pilip.lnx.warwick.ac.uk/docs/master/QuimP_Guide.html> - master branch

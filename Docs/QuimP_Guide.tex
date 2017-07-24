@@ -196,10 +196,18 @@ cell outlines. \cite{Tyson2010}}
 
 The BOA window is presented in Figure \ref{boaWindow}. There are \textbf{four} highlighted areas, which contain tools and allow to adjust settings for segmenting and displaying images, and postprocessing of segmented contours. 
 \begin{itemize}
-	\item Red:  segmentation parameters, described in \hyperref[step4]{step 4} below. 
-	\item Blue: controls for navigating through frames in a time series and for zooming cells visible in the current frame.
+	\item Red: segmentation parameters, described in \hyperref[step4]{step 4} below. 
+	\item Blue: controls for navigating through frames in a time series and for zooming cells visible in the current frame. 
+	\begin{itemize}
+		\item Enabling the tick box labelled \textit{Show paths} will display a trace of the snake as it contracts.  Nodes colour pixels white as they move towards the cell boundary.  This view can be useful for diagnosing why a segmentation fails.
+		\item 	Enabling the tick box labelled \textit{Zoom cell}, will zoom the image to selected cell, and track the zoom to the cell's movements.
+	\end{itemize}
 	\item Green: tools for manual editing of contours.
-	\item Yellow: access to cell contour postprocessing filters (described in section \ref{sec:boaFilters})
+	\item Yellow: access to cell contour postprocessing filters (described in section \ref{sec:boaFilters}). There are also two buttons here helping in populating current filter stack among other frames:
+	\begin{itemize}
+		\item \textit{Populate fwd} - copy current filter stack (together with configuration of used filters) to all next frames (in contrary to menu \textit{Plugin}$\rightarrow$\textit{Populate to all} that copy current configuration to all frames).
+		\item \textit{Copy prev} - copy configuration from previous frame to the current one.
+	\end{itemize}
 \end{itemize}
 
 \begin{figure}[ht]
@@ -228,7 +236,7 @@ The BOA window is presented in Figure \ref{boaWindow}. There are \textbf{four} h
 	\begin{itemize}
 		\item \textit{Discard all} - remove all plugins from all frames. Discard all changes introduced by them to the outline.
 		\item \textit{Re-apply all} - try to reload plugins from disk and apply them to outlines.
-		\item \textit{Populate plugins} - copy plugin tree from current frame to all other frames and apply it to  outlines. Do not run segmentation. This option can be useful together with \nameref{sec:Binary_seg}.
+		\item \textit{Populate to all frames} - copy plugin tree from current frame to all other frames and apply it to  outlines. Do not run segmentation. This option can be useful together with \nameref{sec:Binary_seg}.
 	\end{itemize}
 	\item \textbf{Segmentation}
 	\begin{itemize}
@@ -281,7 +289,7 @@ button again to leave delete mode.
 
 \textbf{Step 4: Adjusting segmentation parameters.}.\phantomsection\label{step4}  When a parameter is altered, BOA immediately re-computes the segmentation
 for all cells on the current frame with the new parameters (all cells share the same parameters).  Each has a minimum/maximum
-value that can not be exceeded.  To alter a parameter either enter a value into the text box, or use the arrows to increase/decrease in steps.
+value that can not be exceeded.  To alter a parameter either enter a value into the text box, or use the arrows to increase/decrease in steps. The key to attaining a good segmentation is the balancing of the 3 forces.
 First, try adjusting the \textit{Image F} parameter to improve the result.
 
 The parameters are as follows:
@@ -314,15 +322,12 @@ Otherwise, the users selection is used as the starting contour for every frame.
 \item \textbf{Expanding snake} - Experimental option. Rather than contract the snake, it expands.  May be useful for tracking vesicles.
 \end{itemize}
 
-The key to attaining a good segmentation is the balancing of the 3 forces. Previous segmentations for your image can be loaded
-back into BOA by hitting load and selecting a QuimP parameter file with the file extension \textit{.paQP}.
-Parameter values alone can be loaded by declining to load associated snakes.
+\textit{Buttons and checkboxes:}
 
-Enabling the tick box labelled \textit{Show paths} will display a trace of the snake as it contracts.  Nodes colour pixels white as they
-move towards the cell boundary.  This view can be useful for diagnosing why a segmentation fails.
+Previous segmentations for your image can be loaded
+back into BOA by hitting load and selecting a QuimP parameter file with the file extension either \textit{.paQP} or \textit{.QCONF}. Parameter values alone can be loaded by declining to load associated snakes. Button \textit{Default} sets above parameters to their default values and recompute current frame. The \textit{Copy prev} button will copy segmentation parameters from previous frame to the current one and re-run segmentation.
 
-Enabling the tick box labelled \textit{Zoom cell}, will zoom the image to the first cell added, and track the zoom to 
-the cell's movements.
+Enabling the tick box labelled \textit{Show paths} will display a trace of the snake as it contracts.  Nodes colour pixels white as they move towards the cell boundary.  This view can be useful for diagnosing why a segmentation fails.
 
 
 \textbf{Step 5: Segmenting multiple frames.}  When happy with the segmentation on the first frame, hit \textit{SEGMENT} to segment

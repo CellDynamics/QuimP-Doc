@@ -729,10 +729,10 @@ The user interface is shown below.
 	\item Outline plots section - allows to plot cell outlines colored according to chosen algorithm. E.g. selecting \textit{Plot type}$\rightarrow$\textit{MOTILITY} and \textit{Mot Thr}=\textit{0}, one will get colored only those parts of outline that have velocity above 0.
 	\item Maxima plot section - contains different methods of data visualization.
 	\item Dynamic plot section - allows to produce image stacks with peaks and tracks changing in time.
-	\item Polar plot section - saves on disk polar plots showing cell averaged in time cell motility along its contour, oriented to selected gradient point. Point on the outline that is closest to selected gradient position is considered as the first one with polar coordinate $\theta=0^{\circ}$.
+	\item Polar plot section - saves on disk polar plot. Polar plot represents local velocity of the cell membrane averaged over time for each node (owing ECMM algorithm, the cell contour can be interpolated to any real number of nodes that can be tracked forward and backward in time). Point on the contour that is closest to location of chemotactic gradient source is considered as the first one at polar coordinate $\theta=0^{\circ}$.
 \end{itemize}
   
-Every time when \textit{Apply} button is used, the module runs new analysis and produces all plots ticked in relevant sections.  
+Every time when \textit{Apply} button is used, the module runs new analysis and produces all plots selected in relevant sections.  
 
 \section{Data Files Explained}
 \label{sec:DataFilesExplained}
@@ -986,11 +986,11 @@ This file stores configuration of plugin stack together with configurations of a
 \section{MATLAB Functions}
 \label{matlab}
 
-Archive with Matlab routines mentioned in this section is available on \href{http://www2.warwick.ac.uk/fac/sci/dcs/people/till_bretschneider/quimp/quimp-download}{QuimP web page (section Download QuimP)}
+Archive with Matlab routines mentioned in this section is available on \href{http://www2.warwick.ac.uk/fac/sci/dcs/people/till_bretschneider/quimp/test_data}{QuimP web page (section Download QuimP)}\footnote{http://www2.warwick.ac.uk/fac/sci/dcs/people/till\_bretschneider/quimp/test\_data}
 
 \noindent\fcolorbox{red}{yellow}{
 	\parbox{\textwidth} {
-		Matlab routines work with old data format only (\textit{*.paQP}, \textit{*.snQP}, etc.). To use them with \textit{QCONF} file, it has to be first converted to the old format. It is also possible to load \textit{QCONF} to Matlab using JSon readers.  
+		Matlab routines work with old data format only (\textit{*.paQP}, \textit{*.snQP}, etc.). To use them with \textit{QCONF} file, it has to be first converted to the old format by Format Converter (Section \ref{sec:DataFilesExplained}). It is also possible to load \textit{QCONF} to Matlab using JSon readers.  
 	}
 }
 
@@ -1164,6 +1164,9 @@ Consult the help for these functions for details of usage and the walkthrough fo
 
 \section{Walkthrough analysis}
 \label{walkthrough}
+%%TODO Keep updated
+Matlab routines and walkthrough data mentioned in this section are still available from
+ \href{http://www2.warwick.ac.uk/fac/sci/dcs/people/till_bretschneider/quimp/test_data}{QuimP web page}\footnote{http://www2.warwick.ac.uk/fac/sci/dcs/people/till\_bretschneider/quimp/test\_data}
 
 The folder \emph{QuimP\_walkthrough\_files} contains 3 tiff image sequences which you can
 analyse (images are courtesy of Evgeny Zatulovskiy, Rob Kay Group, MRC Laboratory of Molecular Biology).

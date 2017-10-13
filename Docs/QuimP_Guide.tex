@@ -132,12 +132,13 @@ There are four stages which are usually performed when tracking cells using Quim
 	\item Data analysis - Performed by the \textbf{Q Analysis} plugin. Statistics are generated and data are visualised in the form of spatial-temporal maps.
 \end{enumerate}
 
-Additionally, there are image pre-processing plugins available such as:
+Additionally, there are data pre-processing plugins available such as:
 
 \begin{enumerate}
 	\item DIC\footnote{Differential Interference Contrast microscopy} plugin (\autoref{sec:DIC})
 	\item Random Walker Segmentation plugin (\autoref{sec:RWSeg})
 	\item Mask generator (\autoref{sec:MaskGenerator})
+	\item Format converter (\autoref{sec:ConversionBetweenFormats})
 \end{enumerate}
 
 A plugin can be launched from either the $[Plugins\rightarrow QuimP]$ menu, or from the QuimP bar
@@ -290,7 +291,7 @@ button again to leave delete mode.
 \textbf{Step 4: Adjusting segmentation parameters.}.\phantomsection\label{step4}  When a parameter is altered, BOA immediately re-computes the segmentation
 for all cells on the current frame with the new parameters (all cells share the same parameters).  Each has a minimum/maximum
 value that can not be exceeded.  To alter a parameter either enter a value into the text box, or use the arrows to increase/decrease in steps. The key to attaining a good segmentation is the balancing of the 3 forces.
-First, try adjusting the \textit{Image F} parameter to improve the result.
+First, try adjusting the \textit{Image F} parameter to improve the result. Parameters can be set for each frame separately.
 
 The parameters are as follows:
 
@@ -324,15 +325,15 @@ Otherwise, the users selection is used as the starting contour for every frame.
 
 \textit{Buttons and checkboxes:}
 
-Previous segmentations for your image can be loaded
+Previous segmentation for your image can be loaded
 back into BOA by hitting load and selecting a QuimP parameter file with the file extension either \textit{.paQP} or \textit{.QCONF}. Parameter values alone can be loaded by declining to load associated snakes. Button \textit{Default} sets above parameters to their default values and recompute current frame. The \textit{Copy prev} button will copy segmentation parameters from previous frame to the current one and re-run segmentation.
 
 Enabling the tick box labelled \textit{Show paths} will display a trace of the snake as it contracts.  Nodes colour pixels white as they move towards the cell boundary.  This view can be useful for diagnosing why a segmentation fails.
 
 
 \textbf{Step 5: Segmenting multiple frames.}  When happy with the segmentation on the first frame, hit \textit{SEGMENT} to segment
-the cell (or cells) in the following frames.  The algorithm may fail at a particular frame and a warning will be printed to the log window,
-at which point you can alter parameters.plugins
+the cell (or cells) in the following frames. Segmentation parameters from starting frame will be copied to subsequent frames. Any outlines already existing on these frames will be overwritten. The algorithm may fail at a particular frame and a warning will be printed to the log window,
+at which point you can alter parameters.plugins. This process can be stopped in any time hitting \textit{SEGMENT} once more.
 
 \textbf{Step 6: Correcting segmentations.}  In the case of failure, or incorrect results, you have 3 options:
 
@@ -349,10 +350,9 @@ of a cell to remove all segmentations from the current frame onwards.
 \end{itemize}
 
 
-\textbf{Step 7: Save the results.}  Click \textit{FINISH}.  The saved cell outlines are those visible on the blue overlay.
-A set of files will be outputted for each segmented cell.  A cell's ID number is automatically added to filenames.
+\textbf{Step 7: Save the results.}  Click \textit{FINISH}.  The saved cell outlines are those visible on the yellow overlay. For new \textit{QCONF} format selected (default) only one composite file is outputted. Otherwise a set of files will be saved for each segmented cell (see Chapter \ref{sec:DataFilesExplained} for description differences between new and old data file format). A cell's ID number is automatically added to filenames.
 
-Enter a name for the analysis (file name extensions are added automatically). BOA outputs files with a \textit{.xxQP} extension.
+Enter a name for the analysis (file name extensions are added automatically). BOA outputs files with a \textit{QCONF} extension for new fileformat or \textit{.xxQP} for old one\footnote{QuimP11}.
 
 Files extended  with \textit{.paQP} contain file paths and parameters associated with a particular analysis.  
 When running other QuimP plugins, it is the \textit{.paQP} file which you must select to continue an analysis (see \ref{paQP}).
@@ -738,12 +738,12 @@ Every time when \textit{Apply} button is used, the module runs new analysis and 
 \label{sec:DataFilesExplained}
 
 \subsection{Parameter files - new format vs. old format}
-The latest QuimP introduces a new file format support\footnote{above QuimP11}. The \textit{QCONF} file is based on human-readable JSON format and it is designed to hold all results evaluated by QuimP on every stage of data processing, together with configuration parameters, algorithm settings, etc. 
+The latest QuimP introduces a new file format called QCONF\footnote{above QuimP11}. The \textit{QCONF} is based on human-readable JSON format and it is designed to hold all results evaluated by QuimP on every stage of data processing, together with configuration parameters, algorithm settings, etc. 
 Initially, the \textit{QCONF} is generated by BOA plugin together with standard \textit{paQP} and \textit{snQP} files. Then, it can be loaded and saved by every other QuimP module. The \textit{QCONF} is not replacement for "old" formats - it rather extends them and allows for easy sharing of results between different QuimP modules, restoring work from last point and keeping the whole QuimP configuration in one place.   
 
 Currently, QuimP understands both formats, but its behavior depends on the status of tick box available in QuimP Toolbar (Figure \ref{fig:quimpBar}) and on format loaded to module:
 \begin{itemize}
-	\item \textit{Use new file format} is selected - only \textit{QCONF} files are shown in file chooser\footnote{This feature may not work correctly on Windows systems}. A \textit{QCONF} loaded to QuimP module will be updated and saved back. Files in previous format (\textit{paQP}, \textit{snQP}, etc) \textbf{are not} saved but they can be optionally regenerated by Format Converter\footnote{Available from QuimP Toolbar $\textit{Tools}\rightarrow\textit{Format Converter}$} in the same directory. Maps (\textit{maQP}) and statistics (\textit{stQP.csv}) are saved every time as separate files but they are also included in \textit{QCONF}.	\textbf{This is recommended approach.}
+	\item \textit{Use new file format} is selected - only \textit{QCONF} files are shown in file chooser\footnote{This feature may not work correctly on Windows systems}. A \textit{QCONF} loaded to QuimP module will be updated and saved back. Files in previous format (\textit{paQP}, \textit{snQP}, \textit{maQP}, \textit{stQP.csv}) \textbf{are not} saved but they can be optionally regenerated by Format Converter\footnote{Available from QuimP Toolbar $\textit{Tools}\rightarrow\textit{Format Converter}$} in the same directory. \textbf{This is recommended approach.}
 	\item \textit{Use new file format} is deselected - both configuration files (\textit{paQP} and \textit{QCONF}) are shown in file chooser. The \textit{paQP} files are generated every time, even if user loaded \textit{QCONF} file. The \textit{QCONF} file \textbf{is not} updated or generated if user loaded \textit{paQP}. 
 \end{itemize}   
 
@@ -753,16 +753,11 @@ Relations between module and file are summarized in Table \ref{filestable}. Lege
 	\item \textbf{M} - file is modified - new data are appended to it.
 	\item \textbf{C} - file is changed - some data are replaced.
 \end{itemize}
-\textbf{Note 1} \\
-When operating with QCONF files, QuimP modules can overwrite existing \textit{paQP} and \textit{snQP} files. The content of those files does not change but the file creation date as well as control sum in \textit{paQP} will change.
 
-\textbf{Note 2} \\
-It is possible to set different segmentation parameters for each frame in BOA module. This feature was not supported in QuimP11, therefore for compatibility reasons, the \textit{paQP} file regenerated on \textit{QCONF} saving will contain segmentation parameters copied from first segmented frame.
-
-\textbf{Note 3} \\
+\textbf{Note} \\
 The \textit{QCONF} file can be loaded to Matlab using one of the free JSON parsers (tested with JSONlab\footnote{\url{http://uk.mathworks.com/matlabcentral/fileexchange/33381-jsonlab--a-toolbox-to-encode-decode-json-files}}).
 
-\begin{table}[]
+\begin{table}[h]
 	\centering
 	\caption{Relation among modules and generated files}
 	\label{filestable}
@@ -777,9 +772,29 @@ The \textit{QCONF} file can be loaded to Matlab using one of the free JSON parse
 
 
 \subsubsection{Conversion between formats}
-QuimP supports conversion between old \textit{paQP} and new \textit{QCONF} formats. Simple tool for this purpose is available from the QuimP bar (see Figure \ref{fig:quimpBar}) under \textit{Tools} menu. A user is able to load either \textit{paQP} or \textit{QCONF} file which will be converted to opposite format ($\textit{paQP} \rightarrow \textit{QCONF}$ or $\textit{QCONF} \rightarrow \textit{paQP}$).
+\label{sec:ConversionBetweenFormats}
+QuimP supports conversion between old \textit{paQP} and new \textit{QCONF} formats. Simple tool for this purpose is available from the QuimP bar (see Figure \ref{fig:quimpBar}) under \textit{Tools} menu or in extended version as separate module (see Figure \ref{fig:formatconverter}). The module additionally allows to extract numeric data from \textit{QCONF} and save them in \textit{csv} files.
 
-This tool may not be able to perform full conversion, e.g. some data in target file may not be available even if they are present in source file(s). Please, refer to message displayed on every run of the tool.   
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=16cm]{fcWindow.png} 
+	\caption{Format converter dialog.}
+	\label{fig:formatconverter}
+\end{figure}
+
+\textbf{Conversion between formats}
+
+Conversion tool is available from either the QuimP bar or Format Converter module under \textit{Convert any} button. After selecting proper input file - \textit{QCONF} or \textit{paQP}, the opposite format is saved in the same folder. The following rules will apply:
+\begin{enumerate}
+	\item If \textit{paQP} is an input file, it must be the first one with suffix \textit{\_0.paQP}.
+	\item The \textit{QCONF} format stores separate segmentation settings for each frame - only settings from the first frame are saved in \textit{paQP}. 
+	\item Order of outline nodes in \textit{QCONF} can be randomly shifted forward or backward by one node during conversion from \textit{paQP}. 
+	\item \textit{paQP} format stores data with precision limited to two decimal places.
+\end{enumerate}
+
+\textbf{Extracting data from \textit{QCONF} format}
+
+The Format converter module allows to save selected parameters evaluated during QuimP workflow as \textit{csv} files. They are not processed in any way (e.g. scaled to different units) and mostly coincide with content of \textit{snQP} or \textit{stQP.csv} files. This tool works only wit \textit{QCONF} files that should be first loaded by \textit{Load QCONF} button. Conversion process is initiated by \textit{Generate} button. Output files are saved in the same folder as input \textit{QCONF}.    
   
 \subsection{Parameter Files - \textit{paQP} Files}
 \label{paQP}

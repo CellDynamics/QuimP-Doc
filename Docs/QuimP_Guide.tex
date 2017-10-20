@@ -629,7 +629,7 @@ The RW plugin can be called outside of QuimP directly from the QuimP Bar. The ma
 \begin{itemize}
 	\item RGB image - user can provide RGB image where foreground pixels are labeled with pure red colour and background with pure green. The z-dimension of the seed image must equal to one or to the number of slices of segmented image. If there is only one slice of the seed given, it will be applied to the first slice of segmented image. For the \textit{n}+1 slice the seed will be generated using results of segmentation of \textit{n}-th slice processed by algorithm selected in \textit{Inter-processing section}.
 	\item Create image - user can create RGB image cloned from the image selected in \textit{Image section} (\textit{Clone} button). The \textit{FG} and \textit{BG} buttons select foreground and background pen respectively.
-	\item Mask image - user can provide binary image, where white areas will stand for the foreground seed. This mode is intended for using results of Active Contour segmentation as input to Random Walk algorithm. The seed stack should have the same size as segmented image. The foreground labels can be larger than objects they label because they are pre-processed (usually shrank) by algorithm selected in \textit{Inter-processing section}. Typical use case is to perform rough segmentation in BOA module using fail safe parameters which usually lead to rough segmentation and then to use Random Walk plugin to get fine one. The improvements should clearly visible especially in concave areas where Active Contour method fails.     
+	\item Mask image - user can provide binary image, where white areas will stand for the foreground seed. This mode is intended for using results of Active Contour segmentation as input to Random Walk algorithm. The seed stack should have the same size as segmented image. The foreground labels can be larger than objects they label because they are pre-processed (usually shrank) by algorithm selected in \textit{Inter-processing section}. Typical use case is to perform rough segmentation in BOA module using fail safe parameters which usually lead to rough segmentation and then to use Random Walk plugin to get fine one. The improvements should clearly visible especially in concave areas where Active Contour method fails. \textbf{Note} - providing mask as initial seed usually requires any \textit{Shrink method} to be set.      
 	\item QCONF file - the same as \textit{Mask image} but user can provide \textit{QCONF} file saved in BOA module.    
 \end{itemize}
   
@@ -671,6 +671,7 @@ The RW plugin can be called outside of QuimP directly from the QuimP Bar. The ma
 		\item \textit{srWindow} - size of the processing window in pixels. Smaller window is more sensitive to small inclusions. 
 	\end{itemize} 
 	\item Binary filter - stands for the final filtering, the same algorithm are used as in \textit{Inter-processing section}.
+	\item Cut output - output mask will be cut by input mask. This option assures that resulting mask is not larger than the seed mask.
 \end{itemize}
 
 \textbf{Display options section} - allows to show real time preview of each segmented frame and seeds computed as results of \textit{Iter-processing} binary masks. This option can be used for verifying \textit{Shrink power} and \textit{Expand power} settings. 

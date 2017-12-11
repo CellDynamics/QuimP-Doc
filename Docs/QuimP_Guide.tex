@@ -204,6 +204,13 @@ The BOA window is presented in Figure \ref{boaWindow}. There are \textbf{four} h
 		\item 	Enabling the tick box labelled \textit{Zoom cell}, will zoom the image to selected cell, and track the zoom to the cell's movements.
 	\end{itemize}
 	\item Green: tools for manual editing of contours.
+	\begin{itemize}
+		\item \textit{Set Scale} - set pixel size and frame rate. These values can be also read from image file if available or set on the BOA start.
+		\item \textit{Truncate seq} - allow to truncate segmented sequence.
+		\item \textit{Add cell} - segment current ROI. Segmented cell should be included entirely in ROI. 
+		\item \textit{Delete cell} - delete already segmented cell. This option removes the whole track of the cell across frames.
+		\item \textit{Freeze} - exclude cell from further modifications. Changes of segmentation parameters, plugins or segmentation of the whole sequence will not affect frozen cells.
+	\end{itemize}
 	\item Yellow: access to cell contour postprocessing filters (described in section \ref{sec:boaFilters}). There are also two buttons here helping in populating current filter stack among other frames:
 	\begin{itemize}
 		\item \textit{Populate fwd} - copy current filter stack (together with configuration of used filters) to all next frames (in contrary to menu \textit{Plugin}$\rightarrow$\textit{Populate to all} that copy current configuration to all frames).
@@ -231,6 +238,7 @@ The BOA window is presented in Figure \ref{boaWindow}. There are \textbf{four} h
 	\begin{itemize}
 		\item \textit{Plot original} - switch on displaying original outlines together with those processed by plugins. If there is no plugin active (or selected) it does nothing.
 		\item \textit{Plot head} - flag zero node of outline with arrow pointing to the outline direction.
+		\item \textit{Zoom freezes} - if set, zoom will freeze all cells except that zoomed in. Un-zoom will release all cells.
 		\item \textit{Show history} - open history window.
 	\end{itemize}
 	\item \hyperref[sec:boaFilters]{\textbf{Plugin}}
@@ -284,9 +292,10 @@ Additional cells can be added in the same way.   The active contours surrounding
 contours crossing over to other cells.  This capability is particularly useful in situations where cells come into close contact, 
 which often disrupts the segmentation process.
 
+If you are not able to find optimal parameters for many cells at once, you can select only one cell then follow points below and at the end use \textit{Freeze} button to block further modification of this cell. Then repeat the whole process for another cell. Note that \textit{Freeze} freezes the whole sequence and one can has many sequences frozen at one time.   
+
 To delete a cell click \textit{Delete cell}, and then click the centre marker of a cell, on any frame where a segmentation is visible.  Hit the same 
 button again to leave delete mode.
-
 
 \textbf{Step 4: Adjusting segmentation parameters.}.\phantomsection\label{step4}  When a parameter is altered, BOA immediately re-computes the segmentation
 for all cells on the current frame with the new parameters (all cells share the same parameters).  Each has a minimum/maximum
@@ -349,8 +358,9 @@ of a cell to remove all segmentations from the current frame onwards.
 \item \textbf{4 - Use BOA plugins.} Try to apply available BOA filters for particular frames or for whole stack. Check \textit{Plugin} menu (Section \ref{sec:boaMenu}) and Section \ref{sec:boaFilters} for details.
 \end{itemize}
 
+You can use also \textit{Zoom freezes} feature from \textit{Preferences} to change \textit{Frame Zoom} behaviour. If \textit{Zoom freezes} is ticked on, \textit{Frame Zoom} freezes all already segmented cells except that currently zoomed. Then any modification will apply only to magnified cell. 
 
-\textbf{Step 7: Save the results.}  Click \textit{FINISH}.  The saved cell outlines are those visible on the yellow overlay. For new \textit{QCONF} format selected (default) only one composite file is outputted. Otherwise a set of files will be saved for each segmented cell (see Chapter \ref{sec:DataFilesExplained} for description differences between new and old data file format). A cell's ID number is automatically added to filenames.
+\textbf{Step 7: Save the results.}  Click \textit{Save and Quit}.  The saved cell outlines are those visible on the yellow overlay. For new \textit{QCONF} format selected (default) only one composite file is outputted. Otherwise a set of files will be saved for each segmented cell (see Chapter \ref{sec:DataFilesExplained} for description differences between new and old data file format). A cell's ID number is automatically added to filenames.
 
 Enter a name for the analysis (file name extensions are added automatically). BOA outputs files with a \textit{QCONF} extension for new fileformat or \textit{.xxQP} for old one\footnote{QuimP11}.
 
@@ -602,7 +612,7 @@ Implemented algorithm uses iterative scheme with three possible stopping criteri
 \begin{enumerate}
 	\item ITERATIONS - if number of iteration defined in \textit{Iterations} is exceeded for first sweep or half of this number for second sweep.
 	\item NANS - if Infs or NaNs appear in solution (they will be removed before presenting result)
-	\item RELERR - if relative error is smaller than defined. Error limit is set explicitly to 8e-3 for first sweep and 1e-5 for second sweep.
+	\item RELERR - if relative error is smaller than defined. Defined by \textit{Rel error}.
 \end{enumerate}
 
 The RW plugin can be called outside of QuimP directly from the QuimP Bar. The main interface is presented in Figure \ref{fig:rwdialog}. The window is divided into eight sections:
@@ -619,7 +629,7 @@ The RW plugin can be called outside of QuimP directly from the QuimP Bar. The ma
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=8cm]{screenRandomWalk.png} 
+	\includegraphics[width=18cm]{screenRandomWalk.png} 
 	\caption{Random Walker segmentation dialog}
 	\label{fig:rwdialog}
 \end{figure}
@@ -643,6 +653,7 @@ The RW plugin can be called outside of QuimP directly from the QuimP Bar. The ma
 	\item \textit{Gamma 0} - currently disabled
 	\item \textit{Gamma 1} - set to 0 to skip second sweep. Other values are currently ignored.
 	\item \textit{Iterations} - number of iterations (half of this number for second sweep)
+	\item \textit{Rell error} - Relative error - stopping criterion for iterative Random Walk algorithm 
 \end{itemize}
 
 \textbf{Inter-processing section} - it controls how binary masks should be transformed to seeds internally. This process applies when seeds are given as results of segmentation from other method (\textit{Mask image} or \textit{QCONF file}) or there is only one slice of seeds provided (\textit{RGB image}). Binary mask is shrunk by algorithm selected in \textbf{Shrink method} with \textbf{Shrink power}. Results define object's seeds for next frame. Then, the same mask (unmodified) is expanded by the same algorithm but with \textbf{Expand power} and then inverted to define background seeds for the next frame. Options available here are:
@@ -659,6 +670,7 @@ The RW plugin can be called outside of QuimP directly from the QuimP Bar. The ma
 		\item \textit{SIMPLE} - performs one iteration of morphological opening operation.
 		\item \textit{MEDIAN} - median filtering with kernel of radius 2.
 	\end{itemize}
+	\item \textit{Estimate Background} - try to apply simple Otsu thresholding to background seeds. Use \textit{Show seeds} to verify correctness of estimation.
 \end{itemize}
 
 \textbf{Local mean} - this option can improve behavior of the algorithm in areas with high gradient of intensity, usually at cell cortex, preserving cell boundaries. This method works only with seeds provided as \textit{Mask image} or \textit{QCONF file}. Moreover, masks should be larger than the object itself. \textit{Window} parameter stands for the size (odd) of the sampling window used for computing local mean intensity.   
@@ -679,6 +691,7 @@ The RW plugin can be called outside of QuimP directly from the QuimP Bar. The ma
 
 \subsubsection{Random Walker Segmentation Workflow}
 %TODO Add exampample of fine processing
+If segmentation ends too early (e.g. result is very similar to seeds) one can open Fiji Console (\textit{Window}$\rightarrow$\textit{Console}) and check reason of stopping and relative error. If process stops due to reaching relative error in the first few iterations, one can adjust \textit{Rel error} accordingly.   
 
 \subsection{Mask generator}
 \label{sec:MaskGenerator}

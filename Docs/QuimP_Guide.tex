@@ -105,7 +105,7 @@ The key features of this version are:
 	\item The BOA plugin can use binary masks generated outside QuimP to create cell outlines (Snakes).
 \end{itemize}
 	
-\subsection{Change log}
+\subsection{Changelog}
 A changelog can be found at the QuimP web page at: \url{http://pilip.lnx.warwick.ac.uk/site/changes-report.html}.
 The current version of QuimP as well as the version history can be viewed directly from the QuimP Bar plugin (Fig. \ref{fig:quimpBar_menu}).
 \begin{figure}[ht]
@@ -368,7 +368,7 @@ Simply open the \textit{.stQP.csv} file in Excel, or use the accompanying script
 
 \subsection{Filtering the outline}
 \label{sec:boaFilters}
-BOA module supports external plugins that pos-process outlines on current frame. Plugins are standalone \textit{jar} files that can be developed by other scientists and distributed independently from QuimP. Available plugins are discovered on BOA launch by scanning default location, which is Fiji/plugins folder. There is no need of any additional action, discovered plugins are available in filter stack on right (see Fig. \ref{boaWindow}). There are three slots in the stack. Filters are applied in order from most top to bottom, next filter uses result of previous one. Any action on filters relates only to current frame (thus each frame can have different filter stack) unless \textit{SEGMENTATION} button is clicked. Automatic segmentation propagates most recent configuration (that means all options available in BOA window) from starting frame to all subsequent frames. Modified contour is drawn in standard yellow colour, whereas red denotes original unprocessed result of segmentation (Fig. \ref{boafilter}). Any further processing in QuimP workflow (e.g. ECMM or ANA) applies to filtered outline. Refer to section \ref{sec:boaMenu} for other options related to filters.
+BOA module supports external plugins for post-processing outlines on current frame. Plugins are standalone \textit{jar} files that can be developed by other scientists and distributed independently from QuimP. Available plugins are discovered when BOA launches by scanning default location, which is Fiji/plugins folder. There is no need of any additional action, discovered plugins are available in filter stack on right (see Fig. \ref{boaWindow}). There are three slots in the stack. Filters are applied in order from most top to bottom, next filter starts with contours returned from the previous one. Any action on filters relates only to current frame (thus each frame can have different filter stack) unless \textit{SEGMENTATION} button is clicked. Automatic segmentation propagates most recent configuration (that means all options available in BOA window) from starting frame to all subsequent frames. Modified contour is drawn in standard yellow colour, whereas red denotes original unprocessed result of segmentation (Fig. \ref{boafilter}). Any further processing in QuimP workflow (e.g. ECMM or ANA) applies to filtered outline. Refer to section \ref{sec:boaMenu} for other options related to filters. \textit{Frozen} cells (Chapter \ref{sec:BOAPlugin}) are also excluded from processing by filters.
 \begin{figure}[ht]
 	\centering
 	\includegraphics[height=7cm]{boafilter.png} % requires the graphicx package
@@ -376,18 +376,19 @@ BOA module supports external plugins that pos-process outlines on current frame.
 	\label{boafilter}
 \end{figure}
 
-Plugin tree is always applied to whole frame and all outlines that are present on it. There is no possibility to filter particular outlines only. If filter contains an user interface, it can be accessed by \textit{GUI} button (Fig. \ref{boafilter}).
+If filter contains an user interface, it can be accessed by \textit{GUI} button (Fig. \ref{boafilter}).
 
 Default installation of QuimP contains four BOA filters:
 \begin{itemize}
 	\item \textbf{HatSnakeFilter} Removes small protrusions from outlines.
 	\item \textbf{MeanSnakeFilter} Apply running mean filter to outlines.
+	\item \textbf{MedianSnakeFilter} Apply running median filter to outlines.
 	\item \textbf{SetHeadSnakeFilter} Allow to choose first node in snake.
 	\item \textbf{RandomWalkSnakeFilter} Perform Random Walk segmentation of frame using Active Contour results (outlines) as initial seed. Refer to section \ref{sec:RWSeg} for more details about Random Walk.
 	\item \textbf{HedgeHogSnakeFilter} For testing purposes.
 \end{itemize}
 
-Filters that have been discovered and properly loaded are marked in green color. This is standard behavior when user start analysis from scratch. If BOA configuration has been restored from \textit{QCONF} file filters (if any were used) are marked in red colour to denote that result of segmentation (that is stored in QCONF file together with raw unprocessed outlines) was processed by filter stack but none of those filters is loaded yet to BOA. In this mode user can browse frames, check segmentation parameters, etc. even if a filter is physically not available in his configuration. Option \textit{Plugin}$\rightarrow$\textit{Re-apply all} will try to load all necessary filters from disk and apply them to each frame where they were used.  
+Filters that have been discovered and properly loaded are marked in green colour. This is standard behaviour when user start analysis from scratch. If BOA configuration has been restored from \textit{QCONF} file, filters (if any was used) are displayed in red colour to denote that result of segmentation (that is stored in QCONF file together with raw unprocessed outlines) was processed by filter stack but none of those filters is loaded yet to BOA. In this mode user can browse through frames, check segmentation parameters, etc. even if a filter is physically not available in his configuration. Option \textit{Plugin}$\rightarrow$\textit{Re-apply all} will try to load all necessary filters from disk and apply them to each frame where they were used. Note that this operation will recompute all outlines on frames where filters were used and replace loaded results with those evaluated. 
 
 \subsection{A Few Words on Image Segmentation}
 

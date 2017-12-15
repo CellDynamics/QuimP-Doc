@@ -95,9 +95,15 @@ Dormann D, Libotte T, Weijer CJ, Bretschneider T. \href{https://www.ncbi.nlm.nih
 \subsection{Summary}
 The key features of this version are:
 \begin{enumerate}
+	\item \href{http://pilip.lnx.warwick.ac.uk/site/changes-report.html#a17.12.03}{v17.12.03}
+	\begin{itemize}
+		\item Macro support - see \ref{sec:macrosupport}
+		\item Save BOA state without quitting - see \ref{sec:BOAPlugin}, \ref{sec:boaMenu}
+		
+	\end{itemize}
 	\item \href{http://pilip.lnx.warwick.ac.uk/site/changes-report.html#a17.12.02}{v17.12.02}
 	\begin{itemize}
-		\item Freeze cells - see \ref{sec:BOAPlugin}, \ref{sec:boaWorkflow}
+		\item Freeze cells - see \ref{sec:BOAPlugin}, \ref{sec:boaWorkflow}, \ref{sec:boaMenu}
 		\item Median Snake filter - see \ref{sec:boaFilters}
 		\item Random Walk plugin - relative error setting, see \ref{sec:RWSeg} 
 	\end{itemize}
@@ -206,7 +212,13 @@ cell outlines. \cite{Tyson2010}}
 
 The BOA window is presented in Figure \ref{boaWindow}. There are \textbf{four} highlighted areas, which contain tools and allow to adjust settings for segmenting and displaying images, and postprocessing of segmented contours. 
 \begin{itemize}
-	\item Red: segmentation parameters, described in \hyperref[step4]{step 4} below. 
+	\item Red: segmentation parameters, described in \hyperref[step4]{step 4} below and buttons:
+	\begin{itemize}
+		\item \textit{Load} - load \texttt{QCONF} or \textit{paQP} experiment files. The same as \textit{File}$\rightarrow$\textit{Load experiment}, see chapter \ref{sec:boaMenu}.
+		\item \textit{Save} - update loaded experiment. The same as \textit{File}$\rightarrow$\textit{Save experiment}, see chapter \ref{sec:boaMenu}.
+		\item \textit{Copy prev} - copy segmentation settings from previous frame to current one and re-run segmentation for current frame.
+		\item \textit{Default} - set default segmentation parameters for current frame..
+	\end{itemize}
 	\item Blue: controls for navigating through frames in a time series and for zooming cells visible in the current frame. 
 	\begin{itemize}
 		\item Enabling the tick box labelled \textit{Show paths} will display a trace of the snake as it contracts.  Nodes colour pixels white as they move towards the cell boundary.  This view can be useful for diagnosing why a segmentation fails.
@@ -218,7 +230,7 @@ The BOA window is presented in Figure \ref{boaWindow}. There are \textbf{four} h
 		\item \textit{Truncate seq} - allow to truncate segmented sequence.
 		\item \textit{Add cell} - segment current ROI. Segmented cell should be included entirely in ROI. 
 		\item \textit{Delete cell} - delete already segmented cell. This option removes the whole track of the cell across frames.
-		\item \textit{Freeze} - exclude cell from further modifications. Changes of segmentation parameters, plugins or segmentation of the whole sequence will not affect frozen cells.
+		\item \textit{Freeze} - exclude cell from further modifications. Any changes of segmentation parameters, plugins or segmentation of the whole sequence will not affect frozen cells.
 	\end{itemize}
 	\item Yellow: access to cell contour postprocessing filters (described in section \ref{sec:boaFilters}). There are also two buttons here helping in populating current filter stack among other frames:
 	\begin{itemize}
@@ -239,7 +251,9 @@ The BOA window is presented in Figure \ref{boaWindow}. There are \textbf{four} h
 \begin{itemize}
 	\item \textbf{File}
 	\begin{itemize}
-		\item \textit{Load global config} - load \texttt{QCONF} configuration file and restore saved state. One can continue work from point where it was saved in.
+		\item \textit{Load experiment} - load \texttt{QCONF} configuration file and restore saved state. One can continue work from point where it was saved in. One can load also old \texttt{paQP} files here but program state will not be restored and many configuration options will be missing.
+		\item \textit{Save experiment} - update already loaded \texttt{QCONF} configuration file or create new one if such file does not exist.
+		\item \textit{Save experiment as..} - save \texttt{QCONF} configuration file under specified name.
 		\item \textit{Load plugin preferences} - load configuration of outline plugins stack.  
 		\item \textit{Save global preferences} - save configuration of outline plugins stack.
 	\end{itemize}
@@ -1023,6 +1037,10 @@ This file stores configuration of plugin stack together with configurations of a
 
 %This section will describes methods for tracking positions through time. See section \ref{trackingMaps}.
 
+\section{ImageJ macro support}
+\label{sec:macrosupport}
+Most of QuimP modules support ImageJ macro language but command syntax (especially parameters passed to module)  differs from those commonly used among other ImageJ plugins. Use Macro Recorder tool to discover required parameters and format they are written down. Note that any file name or path should be enclosed in parentheses if it contains spaces. Quote character is not allowed in parameter string.
+ 
 \section{MATLAB Functions}
 \label{matlab}
 

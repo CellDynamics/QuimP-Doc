@@ -95,11 +95,12 @@ Dormann D, Libotte T, Weijer CJ, Bretschneider T. \href{https://www.ncbi.nlm.nih
 \subsection{Summary}
 The key features of this version are:
 \begin{enumerate}
-	\item \href{http://pilip.lnx.warwick.ac.uk/site/changes-report.html#a17.12.03}{v17.12.03}
+	\item \href{http://pilip.lnx.warwick.ac.uk/site/changes-report.html#a18.01.01}{v18.01.01}
 	\begin{itemize}
 		\item Macro support - see \ref{sec:macrosupport}
 		\item Save BOA state without quitting - see \ref{sec:BOAPlugin}, \ref{sec:boaMenu}
-		
+		\item Added option in BOA for expanding snakes from cell inside - see \ref{sec:BOAPlugin}
+		\item Significant changes in Random Walk module - see \ref{sec:RWSeg} 
 	\end{itemize}
 	\item \href{http://pilip.lnx.warwick.ac.uk/site/changes-report.html#a17.12.02}{v17.12.02}
 	\begin{itemize}
@@ -442,7 +443,7 @@ cells in the field.  This is particularly useful for removing shadows of dirt on
 \subsection{Binary mask segmentation} \label{sec:Binary_seg}
 The QuimP supports creation of Snake outlines directly from binary masks. As the active contour method is not used in this case, one can use another segmentation algorithms (e.g. \hyperref[sec:RWSeg]{Random Walker method}) to deal with problems that typically occur for active contour such as e.g. bad segmentation of cavities.
 
-To use binary segmentation, the black-white mask (8-bit image in ImageJ) should be prepared first. It has to be size of segmented image that is already loaded to BOA plugin. The number of slices in mask file should be less or equal to the number of slices present in segmented image. \textbf{The background pixels must have value 0 whereas objects can be defined by any other values within the range 1-255}.
+To use binary segmentation, either black-white mask (8-bit image in ImageJ) or grayscale images should be obtained in any other way, e.g. by using alternative segmentation tools. It has to be size of segmented image that is already loaded to BOA plugin. The number of slices in mask file should be less or equal to the number of slices present in segmented image. \textbf{The background pixels must have value 0 whereas objects can be defined by any other values within the range 1-255}. This plugin is capable to perform simple cell tracking between adjacent frames. If input mask is binary then cells are assigned to the same track by testing their overlapping between frames. For grayscale images, numeric values of pixel intensities are used.
 
 The binary segmentation plugin can be launched from BOA menu $(\textit{Segmentation}\rightarrow \textit{Binary segmentation})$
 

@@ -100,7 +100,7 @@ The key features of this version are:
 		\item Macro support - see \ref{sec:macrosupport}
 		\item Save BOA state without quitting - see \ref{sec:BOAPlugin}, \ref{sec:boaMenu}
 		\item Added option in BOA for expanding snakes from cell inside - see \ref{sec:BOAPlugin}
-		\item Significant changes in Random Walk module - see \ref{sec:RWSeg} 
+		\item Significant changes in Random Walk module, e.g. multi object segmentation - see \ref{sec:RWSeg} 
 	\end{itemize}
 	\item \href{http://pilip.lnx.warwick.ac.uk/site/changes-report.html#a17.12.02}{v17.12.02}
 	\begin{itemize}
@@ -708,13 +708,14 @@ The RW plugin can be called outside of QuimP from the QuimP Bar, from IJ macro o
 		\end{figure}
 		\item \textit{MORPHOLOGICAL} - masks are processed by morphological erosion. Parameters \textit{Shrink power} and \textit{Expand power} relate to number of algorithm iterations. 
 	\end{itemize}
-	\item Binary filter - applied between sweeps. It is intended to remove binary noise, isolated pixels, etc, that could give false seeding:
+	\item Inter-sweep filter - applied between sweeps. It is intended to remove binary noise, isolated pixels, etc, that could give false seeding:
 	\begin{itemize}
 		\item \textit{NONE} - filtering disabled
 		\item \textit{SIMPLE} - performs one iteration of morphological opening operation.
 		\item \textit{MEDIAN} - median filtering with kernel of radius 2.
 	\end{itemize}
 	\item \textit{Estimate Background} - try to apply simple Otsu thresholding to background seeds. Use \textit{Show seeds} to verify correctness of estimation.
+	\item \textit{Inter-frame filter} - apply additional erosion and median filtering between frames during propagation of seeds.
 \end{itemize}
 
 \textbf{Local mean} - this option can improve behavior of the algorithm in areas with high gradient of intensity, usually at cell cortex, preserving cell boundaries. This method works only with seeds provided as \textit{Mask image} or \textit{QCONF file}. Moreover, masks should be larger than the object itself. \textit{Window} parameter stands for the size (odd) of the sampling window used for computing local mean intensity.   

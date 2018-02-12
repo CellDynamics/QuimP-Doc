@@ -1,0 +1,38 @@
+{
+  "className": "SnakePluginList",
+  "timeStamp": {
+    "version": "0.0.0",
+    "buildstamp": "0.0.0",
+    "name": "0.0.0"
+  },
+  "createdOn": "Fri 2017.12.15 at 13:31:34 PM GMT",
+  "obj": {
+    "sPluginList": [
+      {
+        "isActive": true,
+        "name": "Hatsnakefilter",
+        "config": {
+          "window": "13.0",
+          "pnum": "2.0",
+          "alevmin": "0.0",
+          "alevmax": "1.0"
+        },
+        "ver": "1.0.11-SNAPSHOT"
+      },
+      {
+        "isActive": true,
+        "name": "Mediansnakefilter",
+        "config": {
+          "window": "3.0"
+        },
+        "ver": "1.0.1-SNAPSHOT"
+      },
+      {
+        "isActive": true,
+        "name": "",
+        "config": {},
+        "ver": ""
+      }
+    ]
+  }
+}

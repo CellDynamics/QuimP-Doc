@@ -307,7 +307,7 @@ parameters for individual frames.
 \textbf{Step 3: Adding and deleting cells.} 
 
 To add a cell first scroll to the frame that you want to begin the segmentation at (either with the mouse wheel, or slider).  Using either the
-circular, rectangular or polygon selection tool, draw an ROI (region of interest) around a cell, and click \textit{Add cell}.
+circular, rectangular or polygon selection tool, draw an ROI (region of interest) around a cell, and click \textit{Add cell}. 
 BOA will immediately attempt to segment 
 the cell at the current frame.  If convergence is successful, the result is displayed as an image overlay. The cell is also given an
 identification number.
@@ -325,7 +325,7 @@ button again to leave delete mode.
 \textbf{Step 4: Adjusting segmentation parameters.}.\phantomsection\label{step4}  When a parameter is altered, BOA immediately re-computes the segmentation
 for all cells on the current frame with the new parameters (all cells share the same parameters).  Each has a minimum/maximum
 value that can not be exceeded.  To alter a parameter either enter a value into the text box, or use the arrows to increase/decrease in steps. The key to attaining a good segmentation is the balancing of the 3 forces.
-First, try adjusting the \textit{Image F} parameter to improve the result. Parameters can be set for each frame separately.
+First, try adjusting the \textit{Image F} parameter to improve the result. Parameters can be set for each frame separately. One can also freeze cell to exclude it from further processing.
 
 The parameters are as follows:
 
@@ -354,7 +354,7 @@ the size of the image force.  Briefly, the sampling box should be an appropriate
  intensity between the cell and the background.
 \item \textbf{Use previous snake} - If selected, the solution to the previous frame will be used as the starting contour for the current frame.
 Otherwise, the users selection is used as the starting contour for every frame.
-\item \textbf{Expanding snake} - Experimental option. Rather than contract the snake, it expands.  May be useful for tracking vesicles.
+\item \textbf{Expanding snake} - Experimental option. Rather than contract the snake, it expands it. Initial contour must be drawn inside the cell. Note that all forces are reversed now. 
 \end{itemize}
 
 \textit{Buttons and checkboxes:}
@@ -697,9 +697,9 @@ The RW plugin can be called outside of QuimP from the QuimP Bar, from IJ macro o
 			\item \textit{sigma} - sigma of Gaussian function used for computing \textit{Shrink power} multiplier for negative curvature. For positive curvature multiplier is explicitly set to 1.0. 
 			\item \textit{Magn} - maximal value of multiplier. The Gaussian curve is scaled to give value of 1.0 around curvature of 0 deg and \textit{Magn} for large negative curvatures. Its slope depends on \textit{sigma}. Set it to 1.0 to get curvature independent scaling.
 			\item \textit{Curv dist} - approximate number of nodes used for local averaging of curvature along outline. Values less than 3 usually give average over three nodes (current one, next and previous).
-			\item \textit{Norm dist} - approximate number of nodes used for normals equalization. The algorithm looks for node with minimal curvature within this range and then set normals for all nodes in processed window to be same as in this node. Refer to Figure \ref{fig:shrinkcomp} for examples of \textit{Curv dist} and \textit{Norm dist} parameters.  
+			\item \textit{Norm dist} - approximate number of nodes used for normales equalization. The algorithm looks for node with minimal curvature within this range and then set normales for all nodes in processed window to be same as in this node. Refer to Figure \ref{fig:shrinkcomp} for examples of \textit{Curv dist} and \textit{Norm dist} parameters.  
 		\end{itemize}
-		Generally, non-linear shrinking try to maintain shape of original contour but constricting it more around concave regions of the outline, that should reduce accidental miss-labelling the background.  
+		Generally, non-linear shrinking try to maintain shape of original contour but constricting it more around concave regions of the outline, that should reduce accidental miss-labeling the background.  
 		\begin{figure}[ht]
 			\centering
 			\includegraphics[width=14cm]{PropagateSeeds_Contour.png} 
@@ -734,7 +734,7 @@ The RW plugin can be called outside of QuimP from the QuimP Bar, from IJ macro o
 
 \textbf{Display options section} - allows to show real time preview of each segmented frame and seeds computed as results of \textit{Iter-processing} binary masks. This option can be used for verifying \textit{Shrink power} and \textit{Expand power} settings. \textit{Show maps} display raw unscalled probability maps for each seed. This option does not work with stacks, only probability maps for last segmented frame are displayed.  
 
-\subsubsection{Collecting ROIs}
+\subsubsection{Multi cell segmentation - Collecting ROIs}
 \label{sec:CollectingROIs}
 ROI collector is available after selecting \textit{ROIs} in \textbf{Seeds section}. This tool uses ImageJ ROI Manager to store ROIs that denote foreground and background seeds. The ROIs need to obey certain naming criterion, such as \textit{[LB][Id]\_[No]}, where \textit{LB} can be either \textit{fg} or \textit{bg} denoting foreground or background seed respectively, \textit{Id} is unique number of foreground object (only one or none background seeds are allowed) and \textit{No} is a sequence number of ROI for object of specified \textit{Id} (a seed for one object can be specified by several separate ROIs). 
 

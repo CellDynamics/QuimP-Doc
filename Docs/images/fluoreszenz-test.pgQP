@@ -1,0 +1,38 @@
+{
+  "className": "SnakePluginList",
+  "timeStamp": {
+    "version": "18.01.01",
+    "buildstamp": "baniuk on: 2018-01-23 10:20:32",
+    "name": "QuimP"
+  },
+  "createdOn": "Mon 2018.02.12 at 12:38:40 PM GMT",
+  "obj": {
+    "sPluginList": [
+      {
+        "isActive": true,
+        "name": "Hatsnakefilter",
+        "config": {
+          "window": "13.0",
+          "pnum": "2.0",
+          "alevmin": "0.0",
+          "alevmax": "1.0"
+        },
+        "ver": "1.1.0"
+      },
+      {
+        "isActive": true,
+        "name": "Meansnakefilter",
+        "config": {
+          "window": "3.0"
+        },
+        "ver": "1.0.10"
+      },
+      {
+        "isActive": true,
+        "name": "",
+        "config": {},
+        "ver": ""
+      }
+    ]
+  }
+}

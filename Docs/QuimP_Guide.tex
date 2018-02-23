@@ -95,6 +95,11 @@ Dormann D, Libotte T, Weijer CJ, Bretschneider T. \href{https://www.ncbi.nlm.nih
 \subsection{Summary}
 The key features of this version are:
 \begin{enumerate}
+	\item \href{http://pilip.lnx.warwick.ac.uk/site/changes-report.html#a18.02.01}{v18.02.01}
+	\begin{itemize}
+		\item Enhanced macro support - see \ref{sec:walk_macro}
+
+	\end{itemize}
 	\item \href{http://pilip.lnx.warwick.ac.uk/site/changes-report.html#a18.01.01}{v18.01.01}
 	\begin{itemize}
 		\item Macro support - see \ref{sec:macrosupport}
@@ -137,6 +142,72 @@ If you find a bug or have specific feature requests, please contact the QuimP de
 
 Consult our Wiki page for installation details:\\ \url{http://warwick.ac.uk/quimp/wiki-pages/}
 
+\section{Quick start}
+%TODO Keep updated
+Matlab routines and walkthrough data mentioned in this section are available from
+\href{http://www2.warwick.ac.uk/fac/sci/dcs/people/till_bretschneider/quimp/test_data}{QuimP web page}\footnote{http://www2.warwick.ac.uk/fac/sci/dcs/people/till\_bretschneider/quimp/test\_data}
+
+\subsection{Walkthrough analysis, example 1}
+\label{walkthrough}
+
+The folder \emph{QuimP\_walkthrough\_files} contains 3 tiff image sequences which you can
+analyse (images are courtesy of Evgeny Zatulovskiy, Rob Kay Group, MRC Laboratory of Molecular Biology).
+
+\begin{itemize}
+	\item \textit{QW\_channel\_1\_actin.tif}- Actin label.  Image and has been background corrected and contrast enhanced.
+	\item \textit{QW\_channel\_2\_neg.tif} - Negative stain.  The cell appears as a shadow on a bright
+	background, which has then been inverted.
+	\item \textit{QW\_channel\_2\_seg.tif} - For segmentation we shall use the negative stain channel.  
+	A 1~pixel Gaussian blur has been applied, the background removed, and contrast enhanced.  
+	\item \textit{Segmentation.tif} - Already segmented image - will not be used in this tutorial.
+\end{itemize}
+
+\textbf{Step 1}. Open ImageJ and launch the QuimP bar $[Plugins\rightarrow QuimP\rightarrow QuimP Bar]$.  Open the image \textit{QW\_channel\_2\_seg.tif}.  Launch BOA from the QuimP bar.
+
+\textbf{Step 2}. At the prompt check the scale is correct (2 second frame interval, pixel width 0.2 microns).
+
+\textbf{Step 3}. Using the polygon selection tool, create a selection encompassing the cell. This can be very rough.
+Click \emph{Add cell}.
+
+\textbf{Step 4}.  Adjust the parameters to get a good segmentation.  Click \emph{SEGMENT} and wait for completion. You can also restore experiment configuration from \textit{QW\_channel\_2\_seg.QCONF} file from \textit{example\_output} folder.
+
+\textbf{Step 5}. Scroll through the sequence to check the segmentation result using either the scroll bar or mouse
+wheel. The segmentation should have completed to the last frame.  If not, we will truncate the segmentation.
+Scroll to the last frame which successfully segmented and click \emph{Truncate Seg}.
+Click \emph{FINISH}, and provide a name for the analysis (e.g. `QTest').
+
+\textbf{Step 6}. Launch the ECMM plugin from the QuimP bar. It does not require an image. When prompted,
+locate the QuimP parameter file you just created (e.g QTest.paQP).  ECMM will run.
+You can view the result and close the image.
+
+\textbf{Step 7}. Open the image \textit{QW\_channel\_1\_actin.tif}.  With it in focus, launch the ANA plugin,
+and again select your parameter file.  Choose a sensible cortex width (e.g. 1.5 microns).
+Make sure `save in channel' is set to 1, and normalise to interior is ticked.  Click \emph{ok}.
+When complete, ANA will show the sample locations for the last frame.
+
+\textbf{Step 8}. Close \textit{QW\_channel\_1\_actin.tif}, and open \textit{QW\_channel\_2\_neg.tif}.  We will record another
+channel for good measure.  Repeat the last step, but with the channel 2 image, this time storing
+data in channel 2 (which is the default), and tick \emph{Sample at Ch1 locations}.  ANA will now
+use the same sample points as computed for channel 1 (useful if you want to compute ratios between channels).
+
+\textbf{Step 9}. Launch the Q Analysis plugin, and again choose your parameter file. Check your scale is what you expect at the top of the parameter window. We will use all the
+current defaults, so click \emph{RUN}.  Inspect your maps, all of which are automatically saved to disk.
+
+\textbf{Step 10}. The displayed images have been scaled to cover the colour space. The raw values have been saved
+as text file, with the extension \emph{.maQP} (e.g.  \textit{QTest\_0\_fluoCh1.maQP}).
+You can view them in ImageJ by opening them via $[File -> Import -> Text Image...]$. Note that latest versions of QuimP store these files inside \textit{QCONF} configuration file. One can retrieve them by using Format Converter (see Chapter \ref{sec:DataFilesExplained}).
+
+\textbf{Step 11} We will now switch to MATLAB to plot some of this data.  Open Matlab
+and open the script file \textit{walkthrough.m}, which will guide you through loading and plotting data.
+You can use the output provided in the QuimP package, called \textit{QWalkthrough}, rather than
+your own.
+
+You can find the results from above analysis in \textit{example\_output} folder, exemplary post-processing in Matlab are available for viewing  \href{http://pilip.lnx.warwick.ac.uk/docs/Walkthrough.html}{here}\footnote{http://pilip.lnx.warwick.ac.uk/docs/Walkthrough.html}.
+
+\subsection{Walkthrough analysis, macro example}
+\label{sec:walk_macro}
+In this example you will perform analysis similar to Chapter \ref{walkthrough} but with help of ImageJ macro. Note that this approach requires already segmented image provided as binary or grayscale mask (we use \textit{Segmentation.tif} from walkthrough files). More about converting masks to QuimP format is given in Chapter \ref{sec:Binary_seg}. Full macro is available in walkthrough data archive.
+
 \section{QuimP Workflow}
 
 There are four stages which are usually performed when tracking cells using QuimP, each handled by a different plugin (Figure \ref{fig:quimpBar}).
@@ -155,6 +226,7 @@ Additionally, there are data pre-processing plugins available such as:
 	\item Random Walker Segmentation plugin (\autoref{sec:RWSeg})
 	\item Mask generator (\autoref{sec:MaskGenerator})
 	\item Format converter (\autoref{sec:ConversionBetweenFormats})
+	% TODO Add new converter and link to sec:Binary_seg
 \end{enumerate}
 
 A plugin can be launched from either the $[Plugins\rightarrow QuimP]$ menu, or from the QuimP bar
@@ -1072,6 +1144,8 @@ This file stores configuration of plugin stack together with configurations of a
 \section{ImageJ macro support}
 \label{sec:macrosupport}
 Most of QuimP modules support ImageJ macro language but command syntax (especially parameters passed to module)  differs from those commonly used by other ImageJ plugins. Use Macro Recorder tool to discover parameters supported by plugin. Note that any file name or path should be enclosed in parentheses if it contains spaces. Quote character is not allowed in parameter string. Missed parameters get their default values, therefore output from Macro Recorder can be greatly reduced by removing options that are not used or unchanged. 
+
+Note that macro strings are outputed in Macro Recorder only if plugin is run from Menu. \textbf{It does not work if plugin has been started from QuimP Toolbar.}
  
 \section{MATLAB Functions}
 \label{matlab}
@@ -1250,66 +1324,6 @@ locate $p^{f+1}_{l2}$.  Similarly, \textit{backwardMap} contains the correct val
 Functions \textit{trackForwards.m}, \textit{trackForwAcc.m} and \textit{trackBackwards.m}, given a frame, location,
 and number of frames to track over, will return complete traces for you.
 Consult the help for these functions for details of usage and the walkthrough for an example.
-
-
-\section{Walkthrough analysis}
-\label{walkthrough}
-%%TODO Keep updated
-Matlab routines and walkthrough data mentioned in this section are available from
- \href{http://www2.warwick.ac.uk/fac/sci/dcs/people/till_bretschneider/quimp/test_data}{QuimP web page}\footnote{http://www2.warwick.ac.uk/fac/sci/dcs/people/till\_bretschneider/quimp/test\_data}
- 
-Exemplary Matlab walkthrough analysis is available \href{http://pilip.lnx.warwick.ac.uk/docs/Walkthrough.html}{here}\footnote{http://pilip.lnx.warwick.ac.uk/docs/Walkthrough.html}.  
-
-The folder \emph{QuimP\_walkthrough\_files} contains 3 tiff image sequences which you can
-analyse (images are courtesy of Evgeny Zatulovskiy, Rob Kay Group, MRC Laboratory of Molecular Biology).
-
-\begin{itemize}
-	\item `QW\_channel\_1\_actin.tif'- Actin label.  Image and has been background corrected and contrast enhanced.
-	\item `QW\_channel\_2\_neg.tif' - Negative stain.  The cell appears as a shadow on a bright
-	background, which has then been inverted.
-	\item `QW\_channel\_2\_seg.tif' - For segmentation we shall use the negative stain channel.  
-	A 1~pixel Gaussian blur has been applied, the background removed, and contrast enhanced.  
-\end{itemize}
-
-\textbf{Step 1}. Open ImageJ and launch the QuimP bar $[Plugins\rightarrow QuimP\rightarrow QuimP Bar]$.  Open the image `QW\_channel\_2\_seg.tif'.  Launch BOA from the QuimP bar.
-
-\textbf{Step 2}. At the prompt check the scale is correct (2 second frame interval, pixel width 0.2 microns).
-
-\textbf{Step 3}. Using the polygon selection tool, create a selection encompassing the cell. This can be very rough.
-Click \emph{Add cell}.
-
-\textbf{Step 4}.  Adjust the parameters to get a good segmentation.  Click \emph{SEGMENT} and wait for completion.
-
-\textbf{Step 5}. Scroll through the sequence to check the segmentation result using either the scroll bar or mouse
-wheel. The segmentation should have completed to the last frame.  If not, we will truncate the segmentation.
-Scroll to the last frame which successfully segmented and click \emph{Truncate Seg}.
-Click \emph{FINISH}, and provide a name for the analysis (e.g. `QTest').
-
-\textbf{Step 6}. Launch the ECMM plugin from the QuimP bar. It does not require an image. When prompted,
-locate the QuimP parameter file you just created (e.g QTest.paQP).  ECMM will run.
-You can view the result and close the image.
-
-\textbf{Step 7}. Open the image 'QW\_channel\_1\_actin.tif'.  With it in focus, launch the ANA plugin,
-and again select your parameter file.  Choose a sensible cortex width (e.g. 1.5 microns).
-Make sure `save in channel' is set to 1, and normalise to interior is ticked.  Click \emph{ok}.
-When complete, ANA will show the sample locations for the last frame.
-
-\textbf{Step 8}. Close 'QW\_channel\_1\_actin.tif', and open `QW\_channel\_2\_neg.tif'.  We will record another
-channel for good measure.  Repeat the last step, but with the channel 2 image, this time storing
-data in channel 2 (which is the default), and tick 'Sample at Ch1 locations'.  ANA will now
-use the same sample points as computed for channel 1 (useful if you want to compute ratios between channels).
-
-\textbf{Step 9}. Launch the Q Analysis plugin, and again choose your parameter file. Check your scale is what you expect at the top of the parameter window. We will use all the
-current defaults, so click \emph{RUN}.  Inspect your maps, all of which are automatically saved to disk.
-
-\textbf{Step 10}. The displayed images have been scaled to cover the colour space. The raw values have been saved
-separately as text files, with the extension \emph{.maQP} (e.g.  QTest\_0\_fluoCh1.maQP).
-You can view them in ImageJ by opening them via $[File -> Import -> Text Image...]$.
-
-\textbf{Step 11} We will now switch to MATLAB to plot some of this data.  Open Matlab
-and open the script file 'walkthrough.m', which will guide you through loading and plotting data.
-You can use the output provided in the QuimP package, called \textit{QWalkthrough}, rather than
-your own.
 
 \section {Historical versions}
 

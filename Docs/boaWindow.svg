@@ -26,9 +26,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.9899495"
-     inkscape:cx="395.18442"
-     inkscape:cy="505.51577"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="576.75299"
+     inkscape:cy="594.02154"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -1879,7 +1879,9 @@ KgiDOhEREREREVEFYVAnIiIiIiIiqiD/HyT/V31yhu9CAAAAAElFTkSuQmCC
        style="image-rendering:optimizeQuality"
        preserveAspectRatio="none"
        height="645"
-       width="1002" />
+       width="1002"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <rect
        style="fill:none;fill-rule:evenodd;stroke:#ff0000;stroke-width:2.13058519;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect3401"

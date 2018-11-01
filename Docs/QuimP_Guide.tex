@@ -64,7 +64,7 @@ This manual is available on GitHub. Feel free to fork it and make pull requests!
 \setlength{\parindent}{0pt}
 
 \section{License}
-The full text of QuimP license is available at \href{http://pilip.lnx.warwick.ac.uk/LICENSE.txt}{http://pilip.lnx.warwick.ac.uk/LICENSE.txt}.
+The full text of QuimP license is available at \href{https://pilip.lnx.warwick.ac.uk/LICENSE.txt}{https://pilip.lnx.warwick.ac.uk/LICENSE.txt}.
 
 Please, make the following citation in any publication related to our software:
 
@@ -80,13 +80,13 @@ The most recent documentation can be downloaded from:
 \begin{enumerate}
 	\item \textbf{Final documentation}
 	\begin{itemize}
-		\item PDF - \url{http://pilip.lnx.warwick.ac.uk/docs/master/QuimP_Guide.pdf}
-		\item HTML - \url{http://pilip.lnx.warwick.ac.uk/docs/master/QuimP_Guide.html}
+		\item PDF - \url{https://pilip.lnx.warwick.ac.uk/docs/master/QuimP_Guide.pdf}
+		\item HTML - \url{https://pilip.lnx.warwick.ac.uk/docs/master/QuimP_Guide.html}
 	\end{itemize}
 	\item \textbf{Development documentation}
 	\begin{itemize}
-		\item PDF - \url{http://pilip.lnx.warwick.ac.uk/docs/develop/QuimP_Guide.pdf}
-		\item HTML - \url{http://pilip.lnx.warwick.ac.uk/docs/develop/QuimP_Guide.html}
+		\item PDF - \url{https://pilip.lnx.warwick.ac.uk/docs/develop/QuimP_Guide.pdf}
+		\item HTML - \url{https://pilip.lnx.warwick.ac.uk/docs/develop/QuimP_Guide.html}
 	\end{itemize}
 \end{enumerate} 
 
@@ -102,21 +102,25 @@ Dormann D, Libotte T, Weijer CJ, Bretschneider T. \href{https://www.ncbi.nlm.nih
 \section{QuimP - what is new}
 
 \subsection{Summary}
-The key features of this version are:
+The key features of releases:
 \begin{enumerate}
-	\item \href{http://pilip.lnx.warwick.ac.uk/site/changes-report.html#a18.02.01}{v18.02.01}
+	\item \href{https://pilip.lnx.warwick.ac.uk/site/changes-report.html#a18.10.01}{v18.10.01}
+	\begin{itemize}
+		\item Optimization of Random Walk module for multi-threading execution (\autoref{sec:RWSeg}).
+	\end{itemize}
+	\item \href{https://pilip.lnx.warwick.ac.uk/site/changes-report.html#a18.02.01}{v18.02.01}
 	\begin{itemize}
 		\item Enhanced macro support. The whole workflow can be run as macro - see \autoref{sec:walk_macro}
 		\item New module for generating Qconf files from segmented images. It can replace BOA if one has already segmented image - see \autoref{sec:Binary_seg} 
 	\end{itemize}
-	\item \href{http://pilip.lnx.warwick.ac.uk/site/changes-report.html#a18.01.01}{v18.01.01}
+	\item \href{https://pilip.lnx.warwick.ac.uk/site/changes-report.html#a18.01.01}{v18.01.01}
 	\begin{itemize}
 		\item Macro support - see \autoref{sec:macrosupport}
 		\item Save BOA state without quitting - see \autoref{sec:BOAPlugin}, \autoref{sec:boaMenu}
 		\item Added option in BOA for expanding snakes from cell inside - see \autoref{sec:BOAPlugin}
 		\item Significant changes in Random Walk module, e.g. multi object segmentation - see \autoref{sec:RWSeg} 
 	\end{itemize}
-	\item \href{http://pilip.lnx.warwick.ac.uk/site/changes-report.html#a17.12.02}{v17.12.02}
+	\item \href{https://pilip.lnx.warwick.ac.uk/site/changes-report.html#a17.12.02}{v17.12.02}
 	\begin{itemize}
 		\item Freeze cells - see \autoref{sec:BOAPlugin}, \autoref{sec:boaWorkflow}, \autoref{sec:boaMenu}
 		\item Median Snake filter - see \autoref{sec:boaFilters}
@@ -136,7 +140,7 @@ The key features of this version are:
 \end{enumerate}
 	
 \subsection{Changelog}
-A changelog can be found at the QuimP web page at: \url{http://pilip.lnx.warwick.ac.uk/site/changes-report.html}.
+A changelog can be found at the QuimP web page at: \url{https://pilip.lnx.warwick.ac.uk/site/changes-report.html}.
 Version of QuimP you are running as well as the version history can be viewed directly from the QuimP Bar plugin (\autoref{fig:quimpBar_menu}).
 \begin{figure}[ht]
 	\centering
@@ -213,7 +217,7 @@ and open the script file \textit{walkthrough.m}, which will guide you through lo
 You can use the output provided in the QuimP package, called \textit{QWalkthrough}, rather than
 your own.
 
-You can find the results from above analysis in \textit{example\_output} folder, exemplary post-processing in Matlab are available for viewing  \href{http://pilip.lnx.warwick.ac.uk/docs/Walkthrough.html}{here}\footnote{http://pilip.lnx.warwick.ac.uk/docs/Walkthrough.html}.
+You can find the results from above analysis in \textit{example\_output} folder, exemplary post-processing in Matlab are available for viewing  \href{https://pilip.lnx.warwick.ac.uk/docs/Walkthrough.html}{here}\footnote{https://pilip.lnx.warwick.ac.uk/docs/Walkthrough.html}.
 
 \subsection{Walkthrough analysis, macro example}
 \label{sec:walk_macro}
@@ -863,7 +867,7 @@ The RW plugin can be called outside of QuimP from the QuimP Bar, from IJ macro o
 
 \textbf{Post-processing section} - it covers filtering of results applied after segmentation. The options are:
 \begin{itemize}
-	\item Hat filter - it tries to remove small inclusions in contour that typically came from vesicles located near cell edge. The algorithm is described \href{http://pilip.lnx.warwick.ac.uk/site/apidocs/index.html}{here}.
+	\item Hat filter - it tries to remove small inclusions in contour that typically came from vesicles located near cell edge. The algorithm is described \href{https://pilip.lnx.warwick.ac.uk/site/apidocs/index.html}{here}.
 	\begin{itemize}
 		\item \textit{srAlev} - acceptance level beyond the inclusion is removed
 		\item \textit{srNum} - number of inclusions to remove. All they must have rank above \textit{srAlev}. If this parameter is set to 0, any inclusion with rank above \textit{srAlev} will be removed. 

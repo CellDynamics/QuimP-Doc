@@ -988,7 +988,7 @@ The \textit{QCONF} file can be loaded to Matlab using one of the free JSON parse
 
 \subsubsection{Conversion between formats}
 \label{sec:ConversionBetweenFormats}
-QuimP supports conversion between old \textit{paQP} and new \textit{QCONF} formats. Simple tool for this purpose is available from the QuimP bar (see \autoref{fig:quimpBar}) under \textit{Tools} menu or in extended version as separate module (see \autoref{fig:formatconverter}). The module additionally allows to extract numeric data from \textit{QCONF} and save them in \textit{csv} files.
+QuimP supports conversion between old \textit{paQP} and new \textit{QCONF} formats. Simple tool for this purpose is available from the QuimP bar (see \autoref{fig:quimpBar}) under \textit{Tools} menu or in extended version as separate module (see \autoref{fig:formatconverter}). The module additionally allows to extract numeric data from \textit{QCONF} and save them in user friendly \textit{csv} format.
 
 \begin{figure}[h]
 	\centering
@@ -997,7 +997,7 @@ QuimP supports conversion between old \textit{paQP} and new \textit{QCONF} forma
 	\label{fig:formatconverter}
 \end{figure}
 
-\textbf{Conversion between formats}
+\textbf{Conversion between formats - \textit{Convert any} button}
 
 Conversion tool is available from either the QuimP bar or Format Converter module under \textit{Convert any} button. After selecting proper input file - \textit{QCONF} or \textit{paQP}, the opposite format is saved in the same folder. The following rules will apply:
 \begin{enumerate}
@@ -1007,9 +1007,9 @@ Conversion tool is available from either the QuimP bar or Format Converter modul
 	\item \textit{paQP} format stores data with precision limited to two decimal places.
 \end{enumerate}
 
-\textbf{Extracting data from \textit{QCONF} format}
+\textbf{Extracting data from \textit{QCONF} format - \textit{Load QCONF} button}
 
-The Format converter module (\autoref{fig:formatconverter}) allows to save selected parameters evaluated during QuimP workflow as \textit{csv} files. They are not processed in any way (e.g. scaled to different units) and mostly coincide with content of \textit{snQP} or \textit{stQP.csv} files (except of \textit{q11 files} checkbox that generates \textit{stQP} files). This tool works only wit \textit{QCONF} files that should be first loaded by \textit{Load QCONF} button. Conversion process is initiated by \textit{Generate} button. Output files are saved in the same folder as input \textit{QCONF}.    
+Format converter module (\autoref{fig:formatconverter}) allows to save selected parameters evaluated during QuimP workflow and stored in \textit{QCONF} file as separate \textit{csv} files. Some parameters (like e.g. those under \textit{Raw Stats}) coincide with content of \textit{snQP} or \textit{stQP.csv} files. Data extraction is applicable only to \textit{QCONF} files that should be loaded by \textit{Load QCONF} button. Conversion process is initiated by \textit{Generate} button. Output files are saved in the same folder as input \textit{QCONF}.    
   
 \subsection{Parameter Files - \textit{paQP} Files}
 \label{paQP}

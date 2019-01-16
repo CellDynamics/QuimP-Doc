@@ -54,6 +54,8 @@ Web site: \url{http://www.warwick.ac.uk/quimp}\\
 \vspace{2cm}
 This manual is available on GitHub. Feel free to fork it and make pull requests!\\
 \url{https://github.com/CellDynamics/QuimP-Doc}\\
+\end{center}
+\begin{center}
 \vfill
 {\footnotesize Manual compiled on \today\  at \currenttime}
 \end{center}
@@ -70,7 +72,7 @@ Please, make the following citation in any publication related to our software:
 
 "QuimP [1] used in this study was developed at the University of Warwick with support from BBSRC (BBR grant BB/M01150X/1).”
 \begin{enumerate}
-\item Dormann D, Libotte T, Weijer CJ, Bretschneider T. \href{https://www.ncbi.nlm.nih.gov/pubmed/12112136}{Simultaneous quantification of cell motility and protein-membrane-association using active contours}. Cell Motil Cytoskeleton. 2002 Aug;52(4):221-30. \href{http://dx.doi.org/10.1007/978-3-0348-8043-5_17}{doi: 10.1002/cm.10048}.
+\item Piotr Baniukiewicz, Sharon Collier, Till Bretschneider \href{https://academic.oup.com/bioinformatics/article/34/15/2695/4939330}{QuimP: analyzing transmembrane signalling in highly deformable cells}. \textit{Bioinformatics}, Volume 34, Issue 15, 1 August 2018, Pages 2695-2697, \href{https://doi.org/10.1093/bioinformatics/bty169}{doi: 10.1093/bioinformatics/bty169}
 \end{enumerate}
 
 \section{PDFs and online versions of this manual}
@@ -988,7 +990,7 @@ The \textit{QCONF} file can be loaded to Matlab using one of the free JSON parse
 
 \subsubsection{Conversion between formats}
 \label{sec:ConversionBetweenFormats}
-QuimP supports conversion between old \textit{paQP} and new \textit{QCONF} formats. Simple tool for this purpose is available from the QuimP bar (see \autoref{fig:quimpBar}) under \textit{Tools} menu or in extended version as separate module (see \autoref{fig:formatconverter}). The module additionally allows to extract numeric data from \textit{QCONF} and save them in \textit{csv} files.
+QuimP supports conversion between old \textit{paQP} and new \textit{QCONF} formats. Simple tool for this purpose is available from the QuimP bar (see \autoref{fig:quimpBar}) under \textit{Tools} menu or in extended version as separate module (see \autoref{fig:formatconverter}). The module additionally allows to extract numeric data from \textit{QCONF} and save them in user friendly \textit{csv} format.
 
 \begin{figure}[h]
 	\centering
@@ -997,7 +999,7 @@ QuimP supports conversion between old \textit{paQP} and new \textit{QCONF} forma
 	\label{fig:formatconverter}
 \end{figure}
 
-\textbf{Conversion between formats}
+\textbf{Conversion between formats - \textit{Convert any} button}
 
 Conversion tool is available from either the QuimP bar or Format Converter module under \textit{Convert any} button. After selecting proper input file - \textit{QCONF} or \textit{paQP}, the opposite format is saved in the same folder. The following rules will apply:
 \begin{enumerate}
@@ -1007,9 +1009,9 @@ Conversion tool is available from either the QuimP bar or Format Converter modul
 	\item \textit{paQP} format stores data with precision limited to two decimal places.
 \end{enumerate}
 
-\textbf{Extracting data from \textit{QCONF} format}
+\textbf{Extracting data from \textit{QCONF} format - \textit{Load QCONF} button}
 
-The Format converter module (\autoref{fig:formatconverter}) allows to save selected parameters evaluated during QuimP workflow as \textit{csv} files. They are not processed in any way (e.g. scaled to different units) and mostly coincide with content of \textit{snQP} or \textit{stQP.csv} files (except of \textit{q11 files} checkbox that generates \textit{stQP} files). This tool works only wit \textit{QCONF} files that should be first loaded by \textit{Load QCONF} button. Conversion process is initiated by \textit{Generate} button. Output files are saved in the same folder as input \textit{QCONF}.    
+Format converter module (\autoref{fig:formatconverter}) allows to save selected parameters evaluated during QuimP workflow and stored in \textit{QCONF} file as separate \textit{csv} files. Some parameters (like e.g. those under \textit{Raw Stats}) coincide with content of \textit{snQP} or \textit{stQP.csv} files. Data extraction is applicable only to \textit{QCONF} files that should be loaded by \textit{Load QCONF} button. Conversion process is initiated by \textit{Generate} button. Output files are saved in the same folder as input \textit{QCONF}.    
   
 \subsection{Parameter Files - \textit{paQP} Files}
 \label{paQP}
@@ -1413,7 +1415,7 @@ Consult the help for these functions for details of usage and the walkthrough fo
 
 \section{Contact}
 
-The QuimP software is being developed at the Systems Biology DTC at the University Of Warwick by the Till Bretschneider group (\href{mailto:till.bretschneider@warwick.ac.uk}{Till.Bretschneider@warwick.ac.uk}).
+The QuimP software is being developed at the Department of Computer Science at the University Of Warwick by the Till Bretschneider group (\href{mailto:till.bretschneider@warwick.ac.uk}{Till.Bretschneider@warwick.ac.uk}).
 Further information, and future releases, can be obtained from \url{http://go.warwick.ac.uk/quimp}.
 
 QuimP is under continuous development and feedback will be much appreciated.  If you discover a bug, have suggestions 

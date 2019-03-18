@@ -921,11 +921,9 @@ This plugin supports ImageJ macro language. Use \textit{Macro Recorder} to disco
 \section{Protrusion tracking}
 \label{sec:ProtTracking}
 
-Protrusion Analysis module allows investigating protrusion formation and dynamics.
+Protrusion Analysis module allows investigating protrusion formation and dynamics. The module requires \textit{QCONF} file that contains full description of QuimP analysis. Particularly, the BOA, ECMM an Q Analysis modules should be run on \textit{QCONF} before using Protrusion Analysis.
 
-Protrusions are detected by finding local maxima in the motility map. After decoding from the motility map coordinates (\textit{outline index}, \textit{frame}) to Cartesian coordinates (\textit{x}, \textit{y}, \textit{time}), those points are considered as origins of the protrusions. Every origin point can be tracked backward and forward in time as long as its velocity is above certain level, related to the velocity of origin point.
-
-The module requires \textit{QCONF} file that contains full description of QuimP analysis. Particularly, the BOA, ECMM an Q Analysis modules should be run on \textit{QCONF} before using Protrusion Analysis.
+Arbitrary points of interest can be selected directly on the cell contour or imported from \textit{ROI Manager}. 
 
 The user interface is shown below.
 
@@ -936,21 +934,51 @@ The user interface is shown below.
 	\label{fig:protrusiondialog}
 \end{figure}
 
-\begin{itemize}
-	\item Options section - contains mandatory settings for peaks detection.
-	\begin{itemize}
-		\item \textit{Drop} - defines how long the origin point $p(t0)$ from time frame $t0$ should be tracked forward and backward in term of the change of its velocity in time. The point for time frame $t$, $p(t)$ is tracked as long as its velocity $v_{p(t)}$ meets the criterion $v_{p(t)}>v_{p(t0)}*(1-Drop)$.
-		\item Sens - Peak detection sensitivity. The module uses standard ImageJ \texttt{Process$\rightarrow$Find Maxima} algorithm.
-	\end{itemize} 
-	\item Info section - shows basic information about found number of peaks, data range and gradient position.
-	\item Map plots - allows to select what map plots are produced after analysis. The \textit{Maxima} map contains also peaks points and tracks.  
-	\item Outline plots section - allows to plot cell outlines colored according to chosen algorithm. E.g. selecting \textit{Plot type}$\rightarrow$\textit{MOTILITY} and \textit{Mot Thr}=\textit{0}, one will get colored only those parts of outline that have velocity above 0.
-	\item Maxima plot section - contains different methods of data visualization.
-	\item Dynamic plot section - allows to produce image stacks with peaks and tracks changing in time.
-	\item Polar plot section - saves on disk polar plot. Polar plot represents local velocity of the cell membrane averaged over time for each node (owing ECMM algorithm, the cell contour can be interpolated to any real number of nodes that can be tracked forward and backward in time). Point on the contour that is closest to location of chemotactic gradient source is considered as the first one at polar coordinate $\theta=0^{\circ}$.
-\end{itemize}
-  
-Every time when \textit{Apply} button is used, the module runs new analysis and produces all plots selected in relevant sections.  
+There are four sections on the left side of the user interface:
+
+\begin{enumerate}
+	\item \textbf{Visual tracking} - allow to define points of interests either directly on the cell contour or import them from ROI manager. See note below about coordinate systems and importing from ROI scenarios. Tracking also produces \textit{tracks.csv} files with tracks.
+	\item \textbf{Maps} - display \textit{Motility}, \textit{Convexity} or \textit{Fluorescence} maps for selected cell.
+	\item \textbf{Tables and plots} - produce IJ Result tables with statistics for selected cell (\textit{Geom} button) or fluorescent channel (\textit{Fluo} button). These are the same data as included in the\textit{ .csv} file generated and updated by QuimP pipeline (BOA, ECMM, ANA, Q-Analysis).
+	\item \textbf{Polar plots} - generate and save in current folder polar plots. Polar plot represents local velocity of the cell membrane averaged over time for each node (owing ECMM algorithm, the cell contour can be interpolated to any real number of nodes that can be tracked forward and backward in time). Point on the contour that is closest to location of chemotactic gradient source is considered as the first one at polar coordinate $\theta=0^{\circ}$.  Chemotactic gradient source can be selected by mouse (\textit{Click} button), from ROI (\textit{ROI} button - first point of the ROI is considered as source) or from predefined settings (screen corners).  
+\end{enumerate}
+
+\subsection{Coordinates and conversions}
+\label{sec:Coordinates}
+
+The contours of the cell consist of vertices, internally each vertex \textit{v} for cell \textit{c} is represented by two coordinates: position along outline and time (frame), $v=<p;t>$. The same coordinate system is used for maps generated by Q-Analysis (\textbf{Maps} section of the UI). The vertical axis represents 
+time, with frame 1 at the top.  The horizontal axis represents positions along the cell outline, the length of which has been normalised to 1 at every frame (see \autoref{maps}). Resolution of horizontal axis can be configured in Q-Analysis module (default value is 400). Resolution of vertical axis equals number of frames in the sequence. These both values are stored in the \textit{QCONF} file.
+
+If points selected on the cell contour in the main view of the plugin are exported to ROI manager, they are converted to screen coordinates using configured resolution for positions along the cell outline and number of frames in the sequence (e.g. for default resolution of 400 and 100 frames, point selected at frame 50 in the middle of the contour will have coordinates $x = 200$, $y = 50$). Additionally cell number is encoded in the ROI name as suffix \textit{cell\_N\_X}, where \textit{N} is the cell number and \textit{X} stands for point number.
+
+Reverse operation - importing points from ROI expects the same naming convention unless the user will press and hold \textit{CTRL} key to import all points to the outline of the cell 0. ROI coordinates also should follow guidances given above, they will be converted to <position;frame> on the outline. Position is selected as the closest vertex on the outline to the input point. Not that ROI can be also shapes, which allows to select more than one point at once.
+
+\subsection{Generate tracks}
+\label{sec:GenerateTracks}
+
+Tracks are generated from selected points on the cell outline. Selections can be made directly on the outline or imported as ROIs.
+
+\subsubsection{Manual selection}
+\begin{enumerate}
+	\item Hold \textit{CTRL} and click points of interest on the outlines. You can select points on different cells and different frames. Use \textit{Remove all} button to delete all selected points.
+	\item Click Track to see forward (green) and backward (yellow) tracks. Additional options affect how the output information is presented to the user. For details see tooltips.
+	\item Investigate \textit{tracks\_N.csv} in the root folder. It contains indexes that index maps (\autoref{maps}) and can be used for extracting e.g. values of motility or fluorescence, e.g. one can use Format Converter to generate \textit{csv} representation of maps (see \autoref{sec:ConversionBetweenFormats} and \autoref{sec:walk_macro}).
+\end{enumerate}
+
+\subsubsection{Importing from ROI}
+\label{sec:ImportingFromROI}
+
+In this scenario we are interested in detecting protrusions and tracking them. We use motility map to find out points with highest velocity and then we will track them in the plugin.
+
+\begin{enumerate}
+	\item Load \textit{QCONF} file ti the plugin.
+	\item In \textbf{Maps} section select cell and click \textit{Mot} button to open motility map.
+	\item From Fiji open \texttt{Process$\rightarrow$Find Maxima} plugin and try to identify points in the motility map of highest local velocity (you might need to select options: \textit{Preview}, \textit{Light background} and use threshold around 50). Click Ok if you are happy with results.
+	\item Add points to the ROI manager (Ctrl+T).
+	\item Return to the Protrusion Analysis module and click \textit{<-ROI} to import points to program. Note that by default points are assigned to cell 0, if it is another cell take care about proer naming of the ROI in ROI manager.
+	\item Click Track to see forward (green) and backward (yellow) tracks. Additional options affect how the output information is presented to the user. For details see tooltips.
+	\item Investigate \textit{tracks\_N.csv} in the root folder. It contains indexes that index maps (\autoref{maps}) and can be used for extracting e.g. values of motility or fluorescence, e.g. one can use Format Converter to generate \textit{csv} representation of maps (see \autoref{sec:ConversionBetweenFormats} and \autoref{sec:walk_macro}).
+\end{enumerate}
 
 \section{Data Files Explained}
 \label{sec:DataFilesExplained}

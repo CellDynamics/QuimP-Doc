@@ -107,6 +107,10 @@ Dormann D, Libotte T, Weijer CJ, Bretschneider T. \href{https://www.ncbi.nlm.nih
 \subsection{Summary}
 The key features of releases:
 \begin{enumerate}
+	\item \href{https://pilip.lnx.warwick.ac.uk/site/changes-report.html#a19.04.01}{v19.04.01}
+	\begin{itemize}
+		\item Added Omero import/export option (\autoref{sec:Omero}).
+	\end{itemize}
 	\item \href{https://pilip.lnx.warwick.ac.uk/site/changes-report.html#a19.03.01}{v19.03.01}
 	\begin{itemize}
 		\item Reworked Protrusion Tracking module (\autoref{sec:ProtTracking}).
@@ -312,6 +316,7 @@ Additionally, there are data pre-processing plugins available such as:
 	\item Mask generator (\autoref{sec:MaskGenerator})
 	\item Qconf generator (\autoref{sec:Binary_seg})
 	\item Format converter (\autoref{sec:ConversionBetweenFormats})
+	\item Omero client - available from $\textit{Tools}\rightarrow\textit{Omero client}$ menu (\autoref{sec:Omero})
 \end{enumerate}
 
 A plugin can be launched from either the $[Plugins\rightarrow QuimP]$ menu, or from the QuimP bar
@@ -327,6 +332,11 @@ Once complete, data can be analysed in Excel or MATLAB.
    \caption{The QuimP bar}
    \label{fig:quimpBar}
 \end{figure}
+
+\subsection{Omero integration}
+\label{sec:Omero}
+
+QuimP allows for simple integration with Omero database. Currently supported is uploading and downloading \textit{QCONF} experiment files to and from Omero. In both cases QCONF file and related image are loaded or saved to disk. For more detail consult short help available in OmeroClient module ($\textit{Tools}\rightarrow\textit{Omero client}$). 
 
 
 \section{Cell Segmentation - BOA Plugin}
